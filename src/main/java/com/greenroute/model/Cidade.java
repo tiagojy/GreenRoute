@@ -16,7 +16,7 @@ public class Cidade {
         this.distanciaDaCapital = distanciaDaCapital;
     }
 
-    //CRIANDO OS GETS
+    //CRIANDO OS GETTERS
 
     public int getId(){
         return id;
@@ -48,7 +48,7 @@ public class Cidade {
 
     @Override
     public String toString(){
-        return "Cidade{ id=" + id + ", nome=" + nome + ", estado=" + estado + ", distanciaDaCapital" + distanciaDaCapital + "km}";
+        return "Cidade{ id=" + id + ", nome=" + nome + ", estado=" + estado + ", distanciaDaCapital=" + distanciaDaCapital + "km}";
     }
 
 }
