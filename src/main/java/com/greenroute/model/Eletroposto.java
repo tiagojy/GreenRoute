@@ -69,7 +69,7 @@ public class Eletroposto {
     public void setTiposConectoresDisponiveis(String tiposConectoresDisponiveis){
         this.tiposConectoresDisponiveis = tiposConectoresDisponiveis;
     }
-    
+
     public void setPotenciaCargaKw(double potenciaCargaKw){
         this.potenciaCargaKw = potenciaCargaKw;
     }
