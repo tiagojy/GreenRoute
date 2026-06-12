@@ -7,6 +7,7 @@ public class CidadeRepository {
     private Cidade[] cidades = new Cidade[5];
     private int quantidadeCidades;
 
+    //CADASTRAR NOVAS CIDADES QUANDO O ARRAY ESTIVER CHEIO
     public void cadastrarCidade(Cidade cidade){
 
         if (quantidadeCidades < cidades.length){
