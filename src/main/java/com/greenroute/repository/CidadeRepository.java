@@ -27,15 +27,19 @@ public class CidadeRepository {
         }
 
     }
-    //LISTAR AS CIDADES CADASTRADAS NO ARRAY
     public void listarCidade(){
+
+        if (quantidadeCidades == 0){
+            System.out.println("Nenhuma cidade cadastrada!");
+            return;
+        }
+
         for (int i = 0; i < quantidadeCidades; i++){
             System.out.println(cidades[i]);
         }
     }
 
-    //REMOVER A CIDADE CADASTRADA NO ARRAY
-    public void removerCidade(int id){
+    public boolean removerCidade(int id){
         for (int i = 0; i < quantidadeCidades; i++){
             if (id == cidades[i].getId()){
 
@@ -45,9 +49,12 @@ public class CidadeRepository {
 
                 cidades[quantidadeCidades - 1] = null;
                 quantidadeCidades--;
-                break;
+
+                return true;
             }
         }
+
+        return false;
     }
 
     //ATUALIZAR A CIDADE NO ARRAY PELO ID
