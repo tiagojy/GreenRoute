@@ -22,6 +22,7 @@ public class CidadeController {
             System.out.println("5 - Remover Cidade");
             System.out.println("0 - Voltar");
 
+            System.out.println("Escolha uma opção: ");
             opcao = scanner.nextInt();
 
             switch (opcao) {
@@ -61,7 +62,7 @@ public class CidadeController {
 
     private void cadastrarCidade(){
 
-        System.out.print("Digite o ID da cidade que deseja buscar: ");
+        System.out.print("Digite o ID da cidade que deseja cadastrar: ");
         int id = scanner.nextInt();
         scanner.nextLine();
 
