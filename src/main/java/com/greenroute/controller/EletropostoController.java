@@ -10,7 +10,8 @@ public class EletropostoController {
     private EletropostoRepository eletropostoRepository = new EletropostoRepository();
     private Scanner scanner = new Scanner(System.in);
 
-    public void menuEletroposto(){
+    //MENU RESPONSAVEL PELO ELETROPOSTO
+    public void menuEletroposto() {
 
         int opcao;
 
@@ -22,10 +23,11 @@ public class EletropostoController {
             System.out.println("4 - Atualizar Eletroposto");
             System.out.println("5 - Remover Eletroposto");
             System.out.println("0 - Voltar");
+            System.out.print("Escolha uma opção: ");
 
             opcao = scanner.nextInt();
 
-            switch (opcao){
+            switch (opcao) {
 
                 case 1:
                     cadastrarEletroposto();
@@ -58,13 +60,19 @@ public class EletropostoController {
         } while (opcao != 0);
     }
 
-    private void cadastrarEletroposto(){
+    // CADASTRAR ELETROPOSTO NO ARRAY
+    private void cadastrarEletroposto() {
 
         System.out.print("Digite o ID do eletroposto: ");
         int id = scanner.nextInt();
         scanner.nextLine();
 
-        if (eletropostoRepository.buscarEletroposto(id) != null){
+        if (id <= 0) {
+            System.out.println("ID inválido!");
+            return;
+        }
+
+        if (eletropostoRepository.buscarEletroposto(id) != null) {
             System.out.println("Já existe um eletroposto com esse ID!");
             return;
         }
@@ -72,24 +80,59 @@ public class EletropostoController {
         System.out.print("Digite o nome do eletroposto: ");
         String nome = scanner.nextLine();
 
+        if (nome.trim().isEmpty()) {
+            System.out.println("Nome inválido!");
+            return;
+        }
+
         System.out.print("Digite a localização: ");
         String localizacao = scanner.nextLine();
+
+        if (localizacao.trim().isEmpty()) {
+            System.out.println("Localização inválida!");
+            return;
+        }
 
         System.out.print("Digite o ID da cidade: ");
         int cidadeId = scanner.nextInt();
         scanner.nextLine();
 
+        if (cidadeId <= 0) {
+            System.out.println("ID da cidade inválido!");
+            return;
+        }
+
         System.out.print("Digite os conectores disponíveis: ");
         String tiposConectoresDisponiveis = scanner.nextLine();
+
+        if (tiposConectoresDisponiveis.trim().isEmpty()) {
+            System.out.println("Conector inválido!");
+            return;
+        }
 
         System.out.print("Digite a potência de carga (kW): ");
         double potenciaCargaKw = scanner.nextDouble();
 
+        if (potenciaCargaKw <= 0) {
+            System.out.println("Potência inválida!");
+            return;
+        }
+
         System.out.print("Digite o preço por kWh: ");
         double precoPorKwh = scanner.nextDouble();
 
+        if (precoPorKwh <= 0) {
+            System.out.println("Preço inválido!");
+            return;
+        }
+
         System.out.print("Digite a quantidade de vagas disponíveis: ");
         int vagasDisponiveis = scanner.nextInt();
+
+        if (vagasDisponiveis < 0) {
+            System.out.println("Quantidade de vagas inválida!");
+            return;
+        }
 
         Eletroposto eletroposto = new Eletroposto(
                 id,
@@ -107,31 +150,44 @@ public class EletropostoController {
         System.out.println("Eletroposto cadastrado com sucesso!");
     }
 
-    private void listarEletropostos(){
+    //LISTAR OS ELETROPOSTOS DO ARRAY
+    private void listarEletropostos() {
         eletropostoRepository.listarEletropostos();
     }
 
-    private void buscarEletroposto(){
+    //BUSCAR O ELETROPOSTO CADASTRADO NO ARRAY
+    private void buscarEletroposto() {
 
         System.out.print("Digite o ID do eletroposto que deseja buscar: ");
         int id = scanner.nextInt();
 
+        if (id <= 0) {
+            System.out.println("ID inválido!");
+            return;
+        }
+
         Eletroposto eletroposto = eletropostoRepository.buscarEletroposto(id);
 
-        if (eletroposto != null){
+        if (eletroposto != null) {
             System.out.println(eletroposto);
         } else {
             System.out.println("Eletroposto não encontrado!");
         }
     }
 
-    private void atualizarEletroposto(){
+    //ATUALIZAR O ELETROPOSTO CADASTRADO NO ARRAY
+    private void atualizarEletroposto() {
 
         System.out.print("Digite o ID do eletroposto que deseja atualizar: ");
         int id = scanner.nextInt();
         scanner.nextLine();
 
-        if (eletropostoRepository.buscarEletroposto(id) == null){
+        if (id <= 0) {
+            System.out.println("ID inválido!");
+            return;
+        }
+
+        if (eletropostoRepository.buscarEletroposto(id) == null) {
             System.out.println("Eletroposto não encontrado!");
             return;
         }
@@ -139,24 +195,59 @@ public class EletropostoController {
         System.out.print("Digite o novo nome: ");
         String nome = scanner.nextLine();
 
+        if (nome.trim().isEmpty()) {
+            System.out.println("Nome inválido!");
+            return;
+        }
+
         System.out.print("Digite a nova localização: ");
         String localizacao = scanner.nextLine();
+
+        if (localizacao.trim().isEmpty()) {
+            System.out.println("Localização inválida!");
+            return;
+        }
 
         System.out.print("Digite o novo ID da cidade: ");
         int cidadeId = scanner.nextInt();
         scanner.nextLine();
 
+        if (cidadeId <= 0) {
+            System.out.println("ID da cidade inválido!");
+            return;
+        }
+
         System.out.print("Digite os novos conectores disponíveis: ");
         String tiposConectoresDisponiveis = scanner.nextLine();
+
+        if (tiposConectoresDisponiveis.trim().isEmpty()) {
+            System.out.println("Conector inválido!");
+            return;
+        }
 
         System.out.print("Digite a nova potência de carga (kW): ");
         double potenciaCargaKw = scanner.nextDouble();
 
+        if (potenciaCargaKw <= 0) {
+            System.out.println("Potência inválida!");
+            return;
+        }
+
         System.out.print("Digite o novo preço por kWh: ");
         double precoPorKwh = scanner.nextDouble();
 
+        if (precoPorKwh <= 0) {
+            System.out.println("Preço inválido!");
+            return;
+        }
+
         System.out.print("Digite a nova quantidade de vagas disponíveis: ");
         int vagasDisponiveis = scanner.nextInt();
+
+        if (vagasDisponiveis < 0) {
+            System.out.println("Quantidade de vagas inválida!");
+            return;
+        }
 
         Eletroposto eletropostoAtualizado = new Eletroposto(
                 id,
@@ -171,21 +262,27 @@ public class EletropostoController {
 
         boolean atualizou = eletropostoRepository.atualizarEletroposto(eletropostoAtualizado);
 
-        if (atualizou){
+        if (atualizou) {
             System.out.println("Eletroposto atualizado com sucesso!");
         } else {
             System.out.println("Eletroposto não encontrado!");
         }
     }
 
-    private void removerEletroposto(){
+    //REMOVER O ELETROPOSTO CADASTRADO NO ARRAY
+    private void removerEletroposto() {
 
         System.out.print("Digite o ID do eletroposto que deseja remover: ");
         int id = scanner.nextInt();
 
+        if (id <= 0) {
+            System.out.println("ID inválido!");
+            return;
+        }
+
         boolean removeu = eletropostoRepository.removerEletroposto(id);
 
-        if (removeu){
+        if (removeu) {
             System.out.println("Eletroposto removido com sucesso!");
         } else {
             System.out.println("Eletroposto não encontrado!");

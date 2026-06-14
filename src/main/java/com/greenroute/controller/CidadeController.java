@@ -9,6 +9,7 @@ public class CidadeController {
     private CidadeRepository cidadeRepository = new CidadeRepository();
     private Scanner scanner = new Scanner(System.in);
 
+    //MENU RESPONSAVEL PELO MENU CIDADE
     public void menuCidade(){
 
         int opcao;
@@ -60,11 +61,17 @@ public class CidadeController {
         while (opcao != 0);
     }
 
+    //CADASTRAR CIDADE NO ARRAY
     private void cadastrarCidade(){
 
         System.out.print("Digite o ID da cidade que deseja cadastrar: ");
         int id = scanner.nextInt();
         scanner.nextLine();
+
+        if (id <= 0) {
+            System.out.println("ID inválido!");
+            return;
+        }
 
         if (cidadeRepository.buscarCidade(id) != null){
             System.out.println("Já existe uma cidade com esse ID!");
@@ -87,10 +94,12 @@ public class CidadeController {
         System.out.println("Cidade cadastrada com sucesso!");
     }
 
+    //LISTAR AS CIDADES CADASTARDAS NO ARRAY
     private void listarCidade(){
         cidadeRepository.listarCidade();
     }
 
+    //BUSCAR A CIDADE CADASTRADA NO ARRAY
     private void buscarCidade(){
         System.out.print("Digite o ID da cidade: ");
         int id = scanner.nextInt();
@@ -104,11 +113,22 @@ public class CidadeController {
         }
     }
 
+    //ATUALIZAR A CIDADE CADASTRADA NO ARRAY
     private void atualizarCidade(){
 
         System.out.print("Digite o ID da cidade que deseja atualizar: ");
         int id = scanner.nextInt();
         scanner.nextLine();
+
+        if (id <= 0) {
+            System.out.println("ID inválido!");
+            return;
+        }
+
+        if (cidadeRepository.buscarCidade(id) == null){
+            System.out.println("Cidade não encontrada!");
+            return;
+        }
 
         System.out.print("Digite o novo nome da cidade: ");
         String nome = scanner.nextLine();
@@ -126,15 +146,12 @@ public class CidadeController {
                 distanciaDaCapital
         );
 
-        boolean atualizou = cidadeRepository.atualizarCidade(cidadeAtualizada);
+        cidadeRepository.atualizarCidade(cidadeAtualizada);
 
-        if (atualizou){
-            System.out.println("Cidade atualizada com sucesso!");
-        } else {
-            System.out.println("Cidade não encontrada!");
-        }
+        System.out.println("Cidade atualizada com sucesso!");
     }
 
+    //REMOVER A CIDADE CADASTRADA NO ARRAY
     private void removerCidade(){
         System.out.print("Digite o ID da cidade que deseja remover: ");
         int id = scanner.nextInt();

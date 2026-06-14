@@ -27,6 +27,8 @@ public class CidadeRepository {
         }
 
     }
+
+    //LISTAR AS CIDADES CADASTRADAS NO ARRAY
     public void listarCidade(){
 
         if (quantidadeCidades == 0){
@@ -39,6 +41,7 @@ public class CidadeRepository {
         }
     }
 
+    //REMOVER A CIDADE CADASTRADA NO ARRAY
     public boolean removerCidade(int id){
         for (int i = 0; i < quantidadeCidades; i++){
             if (id == cidades[i].getId()){

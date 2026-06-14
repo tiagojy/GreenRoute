@@ -7,7 +7,7 @@ public class EletropostoRepository {
     private Eletroposto[] eletropostos = new Eletroposto[5];
     private int quantidadeEletropostos;
 
-    // CADASTRAR ELETROPOSTO
+    // CADASTRAR ELETROPOSTO NO ARRAY
     public void cadastrarEletroposto(Eletroposto eletroposto) {
 
         if (quantidadeEletropostos < eletropostos.length) {
@@ -28,7 +28,7 @@ public class EletropostoRepository {
         }
     }
 
-    // LISTAR ELETROPOSTOS
+    // LISTAR ELETROPOSTOS CADASTRADOS NO ARRAY
     public void listarEletropostos() {
 
         if (quantidadeEletropostos == 0) {
@@ -41,7 +41,7 @@ public class EletropostoRepository {
         }
     }
 
-    // REMOVER ELETROPOSTO
+    // REMOVER ELETROPOSTO CADASTRADO NO ARRAY
     public boolean removerEletroposto(int id) {
 
         for (int i = 0; i < quantidadeEletropostos; i++) {
@@ -62,7 +62,7 @@ public class EletropostoRepository {
         return false;
     }
 
-    // ATUALIZAR ELETROPOSTO
+    // ATUALIZAR ELETROPOSTO CADASTRADO NO ARRAY
     public boolean atualizarEletroposto(Eletroposto eletropostoAtualizado) {
 
         for (int i = 0; i < quantidadeEletropostos; i++) {
@@ -77,7 +77,7 @@ public class EletropostoRepository {
         return false;
     }
 
-    // BUSCAR ELETROPOSTO POR ID
+    // BUSCAR ELETROPOSTO POR ID CADASTRADO NO ARRAY
     public Eletroposto buscarEletroposto(int id) {
 
         for (int i = 0; i < quantidadeEletropostos; i++) {
