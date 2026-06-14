@@ -1,17 +1,204 @@
-package com.greenroute;
+//package com.greenroute;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+import java.util.Scanner;
+
+import controller.VeiculoController;
+import model.Veiculo;
+import model.VeiculoEletrico;
+import model.VeiculoHibrido;
+
 public class Main {
-    static void main() {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        IO.println(String.format("Hello and welcome!"));
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            IO.println("i = " + i);
-        }
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+        VeiculoController controller = new VeiculoController();
+
+        int opcao;
+
+        do {
+
+            System.out.println("\n===== GREEN ROUTE =====");
+            System.out.println("1 - Cadastrar Veículo");
+            System.out.println("2 - Listar Veículos");
+            System.out.println("3 - Buscar Veículo");
+            System.out.println("4 - Atualizar Veículo");
+            System.out.println("5 - Remover Veículo");
+            System.out.println("6 - Calcular Autonomia");
+            System.out.println("0 - Sair");
+
+            opcao = sc.nextInt();
+
+            switch (opcao) {
+
+                case 1:
+
+                    System.out.println("1 - Veículo Elétrico");
+                    System.out.println("2 - Veículo Híbrido");
+
+                    int tipo = sc.nextInt();
+
+                    System.out.print("ID: ");
+                    int id = sc.nextInt();
+
+                    sc.nextLine();
+
+                    System.out.print("Modelo: ");
+                    String modelo = sc.nextLine();
+
+                    System.out.print("Autonomia Máxima: ");
+                    double autonomiaMaxima = sc.nextDouble();
+
+                    System.out.print("Carga da Bateria (%): ");
+                    double cargaBateria = sc.nextDouble();
+
+                    System.out.print("Consumo kWh/km: ");
+                    double consumo = sc.nextDouble();
+
+                    System.out.print("Tempo de Recarga Completa: ");
+                    int tempoRecarga = sc.nextInt();
+
+                    if (tipo == 1) {
+
+                        sc.nextLine();
+
+                        System.out.print("Tipo de Conector: ");
+                        String conector = sc.nextLine();
+
+                        System.out.print("Tempo de Recarga Rápida: ");
+                        int tempoRapida = sc.nextInt();
+
+                        VeiculoEletrico eletrico =
+                                new VeiculoEletrico(
+                                        id,
+                                        modelo,
+                                        autonomiaMaxima,
+                                        cargaBateria,
+                                        consumo,
+                                        tempoRecarga,
+                                        conector,
+                                        tempoRapida);
+
+                        controller.cadastrar(eletrico);
+
+                    } else {
+
+                        System.out.print("Capacidade do Tanque: ");
+                        double tanque = sc.nextDouble();
+
+                        System.out.print("Consumo Combustível (km/l): ");
+                        double consumoComb = sc.nextDouble();
+
+                        sc.nextLine();
+
+                        System.out.print("Tipo de Combustível: ");
+                        String tipoComb = sc.nextLine();
+
+                        VeiculoHibrido hibrido =
+                                new VeiculoHibrido(
+                                        id,
+                                        modelo,
+                                        autonomiaMaxima,
+                                        cargaBateria,
+                                        consumo,
+                                        tempoRecarga,
+                                        tanque,
+                                        consumoComb,
+                                        tipoComb);
+
+                        controller.cadastrar(hibrido);
+                    }
+
+                    break;
+
+                case 2:
+
+                    controller.listar();
+                    break;
+
+                case 3:
+
+                    System.out.print("Digite o ID: ");
+                    int idBusca = sc.nextInt();
+
+                    Veiculo encontrado =
+                            controller.buscarPorId(idBusca);
+
+                    System.out.println(encontrado);
+
+                    break;
+
+                case 4:
+
+                    System.out.print("ID do veículo: ");
+                    int idAtualizar = sc.nextInt();
+
+                    sc.nextLine();
+
+                    System.out.print("Novo modelo: ");
+                    String novoModelo = sc.nextLine();
+
+                    System.out.print("Nova autonomia máxima: ");
+                    double novaAutonomia = sc.nextDouble();
+
+                    System.out.print("Nova carga da bateria: ");
+                    double novaCarga = sc.nextDouble();
+
+                    System.out.print("Novo consumo: ");
+                    double novoConsumo = sc.nextDouble();
+
+                    System.out.print("Novo tempo de recarga: ");
+                    int novoTempo = sc.nextInt();
+
+                    VeiculoEletrico atualizado =
+                            new VeiculoEletrico(
+                                    idAtualizar,
+                                    novoModelo,
+                                    novaAutonomia,
+                                    novaCarga,
+                                    novoConsumo,
+                                    novoTempo,
+                                    "CCS2",
+                                    30);
+
+                    controller.atualizar(
+                            idAtualizar,
+                            atualizado);
+
+                    break;
+
+                case 5:
+
+                    System.out.print("ID para remover: ");
+                    int idRemover = sc.nextInt();
+
+                    controller.remover(idRemover);
+
+                    break;
+
+                case 6:
+
+                    System.out.print("ID do veículo: ");
+                    int idAutonomia = sc.nextInt();
+
+                    Veiculo veiculo =
+                            controller.buscarPorId(idAutonomia);
+
+                    System.out.println(
+                            "Autonomia Atual: "
+                                    + veiculo.calcularAutonomiaAtual()
+                                    + " km");
+
+                    break;
+
+                case 0:
+
+                    System.out.println("Sistema encerrado.");
+                    break;
+            }
+
+        } while (opcao != 0);
+
+        sc.close();
     }
 }

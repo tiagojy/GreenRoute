@@ -16,27 +16,27 @@ public class VeiculoRepository {
         }
     }
 
-    public Veiculo buscar(int indice) {
+    public Veiculo buscar(int id) {
 
-        if (indice >= 0 && indice < quantidade) {
-            return veiculos[indice];
+        if (id >= 0 && id < quantidade) {
+            return veiculos[id];
         }
 
         return null;
     }
 
-    public void atualizar(int indice, Veiculo veiculo) {
+    public void atualizar(int id, Veiculo veiculo) {
 
-        if (indice >= 0 && indice < quantidade) {
-            veiculos[indice] = veiculo;
+        if (id >= 0 && id < quantidade) {
+            veiculos[id] = veiculo;
         }
     }
 
-    public void remover(int indice) {
+    public void remover(int id) {
 
-        if (indice >= 0 && indice < quantidade) {
+        if (id >= 0 && id < quantidade) {
 
-            for (int i = indice; i < quantidade - 1; i++) {
+            for (int i = id; i < quantidade - 1; i++) {
                 veiculos[i] = veiculos[i + 1];
             }
 
@@ -46,8 +46,9 @@ public class VeiculoRepository {
     }
 
     public void listar() {
+        System.out.println("=== LISTA DE VEÍCULOS ===");
         for (int i = 0; i < quantidade; i++) {
-            System.out.println(veiculos[i].getModelo() + " - Autonomia: " + veiculos[i].calcularAutonomia() + " km");
+            System.out.println("Veículo: " + veiculos[i].getModelo() + " - ID: " + veiculos[i].getId() + " - Autonomia: " + veiculos[i].calcularAutonomia() + " km");
         }
     }
 }
