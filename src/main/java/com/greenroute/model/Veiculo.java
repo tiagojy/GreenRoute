@@ -1,16 +1,20 @@
+package com.greenroute.model;
+
 public abstract class Veiculo {
     private int id;
     private String modelo;
     private double autonomiaMaxima;
     private double cargaBateriaAtual;
+    private double combustivelAtual;
     private double consumoKwhPorKm;
     private int tempoRecargaCompleta;
 
-    public void veiculo (int id, String modelo, double autonomiaMaxima, double cargaBateriaAtual, double consumoKwhPorKm, int tempoRecargaCompleta) {
+    public Veiculo(int id, String modelo, double autonomiaMaxima, double cargaBateriaAtual, double combustivelAtual, double consumoKwhPorKm, int tempoRecargaCompleta) {
         this.id = id;
         this.modelo = modelo;
         this.autonomiaMaxima = autonomiaMaxima;
         this.cargaBateriaAtual = cargaBateriaAtual;
+        this.combustivelAtual = combustivelAtual;
         this.consumoKwhPorKm = consumoKwhPorKm;
         this.tempoRecargaCompleta = tempoRecargaCompleta;
     }
@@ -31,6 +35,10 @@ public abstract class Veiculo {
 
     public double getCargaBateriaAtual() {
         return cargaBateriaAtual;
+    }
+
+    public double getCombustivelAtual() {
+        return combustivelAtual;
     }
 
     public double getConsumoKwhPorKm() {
@@ -57,6 +65,10 @@ public abstract class Veiculo {
 
     public void setCargaBateriaAtual(double cargaBateriaAtual) {
         this.cargaBateriaAtual = cargaBateriaAtual;
+    }
+
+    public void setCombustivelAtual(double combustivelAtual) {
+        this.combustivelAtual;
     }
 
     public void setConsumoKwhPorKm(double consumoKwhPorKm) {

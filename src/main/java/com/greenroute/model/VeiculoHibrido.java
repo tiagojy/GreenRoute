@@ -1,11 +1,13 @@
+package com.greenroute.model;
+
 public class VeiculoHibrido extends Veiculo {
     private double capacidadeTanqueCombustivel;
     private double consumoCombustivel;
     private String tipoCombustivel;
 
-    public VeiculoHibrido(int id, String modelo, double autonomiaMaxima, double cargaBateriaAtual, double consumoKwhPorKm, int tempoRecargaCompleta, double capacidadeTanqueCombustivel, double consumoCombustivel, String tipoCombustivel) {
+    public VeiculoHibrido(int id, String modelo, double autonomiaMaxima, double combustivelAtual, double consumoKwhPorKm, int tempoRecargaCompleta, double capacidadeTanqueCombustivel, double consumoCombustivel, String tipoCombustivel) {
 
-        super(id, modelo, autonomiaMaxima, cargaBateriaAtual, consumoKwhPorKm, tempoRecargaCompleta);
+        super(id, modelo, autonomiaMaxima, combustivelAtual, consumoKwhPorKm, tempoRecargaCompleta);
 
         this.capacidadeTanqueCombustivel = capacidadeTanqueCombustivel;
         this.consumoCombustivel = consumoCombustivel;
@@ -38,5 +40,10 @@ public class VeiculoHibrido extends Veiculo {
 
     public void setTipoCombustivel(String tipoCombustivel) {
         this.tipoCombustivel = tipoCombustivel;
+    }
+
+    @Override
+    public double calcularAutonomia() {
+        return 0;
     }
 }

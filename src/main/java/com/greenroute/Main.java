@@ -1,11 +1,11 @@
-//package com.greenroute;
+package com.greenroute;
 
 import java.util.Scanner;
 
-import controller.VeiculoController;
-import model.Veiculo;
-import model.VeiculoEletrico;
-import model.VeiculoHibrido;
+import com.greenroute.controller.VeiculoController;
+import com.greenroute.model.Veiculo;
+import com.greenroute.model.VeiculoEletrico;
+import com.greenroute.model.VeiculoHibrido;
 
 public class Main {
 
@@ -68,16 +68,7 @@ public class Main {
                         System.out.print("Tempo de Recarga Rápida: ");
                         int tempoRapida = sc.nextInt();
 
-                        VeiculoEletrico eletrico =
-                                new VeiculoEletrico(
-                                        id,
-                                        modelo,
-                                        autonomiaMaxima,
-                                        cargaBateria,
-                                        consumo,
-                                        tempoRecarga,
-                                        conector,
-                                        tempoRapida);
+                        VeiculoEletrico eletrico = new VeiculoEletrico(id, modelo, autonomiaMaxima, cargaBateria, consumo, tempoRecarga, conector, tempoRapida);
 
                         controller.cadastrar(eletrico);
 
@@ -95,16 +86,7 @@ public class Main {
                         String tipoComb = sc.nextLine();
 
                         VeiculoHibrido hibrido =
-                                new VeiculoHibrido(
-                                        id,
-                                        modelo,
-                                        autonomiaMaxima,
-                                        cargaBateria,
-                                        consumo,
-                                        tempoRecarga,
-                                        tanque,
-                                        consumoComb,
-                                        tipoComb);
+                                new VeiculoHibrido(id, modelo, autonomiaMaxima, cargaBateria, consumo, tempoRecarga, tanque, consumoComb, tipoComb);
 
                         controller.cadastrar(hibrido);
                     }
@@ -121,8 +103,7 @@ public class Main {
                     System.out.print("Digite o ID: ");
                     int idBusca = sc.nextInt();
 
-                    Veiculo encontrado =
-                            controller.buscarPorId(idBusca);
+                    Veiculo encontrado = controller.procurarId(idBusca);
 
                     System.out.println(encontrado);
 
@@ -151,19 +132,9 @@ public class Main {
                     int novoTempo = sc.nextInt();
 
                     VeiculoEletrico atualizado =
-                            new VeiculoEletrico(
-                                    idAtualizar,
-                                    novoModelo,
-                                    novaAutonomia,
-                                    novaCarga,
-                                    novoConsumo,
-                                    novoTempo,
-                                    "CCS2",
-                                    30);
+                            new VeiculoEletrico(idAtualizar,novoModelo, novaAutonomia, novaCarga, novoConsumo, novoTempo, "CCS2", 30);
 
-                    controller.atualizar(
-                            idAtualizar,
-                            atualizado);
+                    controller.atualizarVeiculo(idAtualizar, atualizado);
 
                     break;
 
@@ -181,13 +152,9 @@ public class Main {
                     System.out.print("ID do veículo: ");
                     int idAutonomia = sc.nextInt();
 
-                    Veiculo veiculo =
-                            controller.buscarPorId(idAutonomia);
+                    Veiculo veiculo = controller.procurarId(idAutonomia);
 
-                    System.out.println(
-                            "Autonomia Atual: "
-                                    + veiculo.calcularAutonomiaAtual()
-                                    + " km");
+                    System.out.println("Autonomia Atual: " + veiculo.calcularAutonomia() + " km");
 
                     break;
 

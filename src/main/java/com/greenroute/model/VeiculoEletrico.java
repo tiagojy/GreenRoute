@@ -1,3 +1,5 @@
+package com.greenroute.model;
+
 public class VeiculoEletrico extends Veiculo {
     private String tipoConector;
     private int tempoRecargaRapida;
@@ -28,5 +30,10 @@ public class VeiculoEletrico extends Veiculo {
 
     public void setTempoRecargaRapida(int tempoRecargaRapida) {
         this.tempoRecargaRapida = tempoRecargaRapida;
+    }
+
+    @Override
+    public double calcularAutonomia() {
+        return veiculo.getCargaBateriaAtual() / veiculo.getConsumoKwhPorKm();
     }
 }
