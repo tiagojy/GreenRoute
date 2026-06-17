@@ -53,12 +53,14 @@ public class VeiculoHibrido extends Veiculo {
     }
 
     @Override
-public double calcularAutonomia() {
+    public double calcularAutonomia() {
 
-    double autonomiaEletrica = getCargaBateriaAtual() / getConsumoKwhPorKm();
+        double autonomiaEletrica =
+                getAutonomiaMaxima() * (getCargaBateriaAtual() / 100.0);
 
-    double autonomiaCombustivel = getCombustivelAtual() / getConsumoCombustivel();
+        double autonomiaCombustivel =
+                getCombustivelAtual() * getConsumoCombustivel();
 
-    return autonomiaEletrica + autonomiaCombustivel;
-}
+        return autonomiaEletrica + autonomiaCombustivel;
+    }
 }
