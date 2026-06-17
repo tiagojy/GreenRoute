@@ -9,6 +9,12 @@ public class CidadeController {
     private CidadeRepository cidadeRepository = new CidadeRepository();
     private Scanner scanner = new Scanner(System.in);
 
+
+    //Esse metodo foi criado para o PlanejamentoViagemController conseguir buscar uma cidade pelo ID usando o CidadeController
+    public Cidade procurarId(int id) {
+        return cidadeRepository.buscarCidade(id);
+    }
+
     //MENU RESPONSAVEL PELO MENU CIDADE
     public void menuCidade(){
 

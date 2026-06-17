@@ -5,6 +5,7 @@ import java.util.Scanner;
 import com.greenroute.controller.VeiculoController;
 import com.greenroute.controller.CidadeController;
 import com.greenroute.controller.EletropostoController;
+import com.greenroute.controller.PlanejamentoViagemController;
 
 import com.greenroute.model.Veiculo;
 import com.greenroute.model.VeiculoEletrico;
@@ -20,6 +21,9 @@ public class Main {
         CidadeController cidadeController = new CidadeController();
         EletropostoController eletropostoController = new EletropostoController();
 
+        PlanejamentoViagemController planejamentoViagemController =
+                new PlanejamentoViagemController(controller, cidadeController);
+
         int opcao;
 
         do {
@@ -33,6 +37,7 @@ public class Main {
             System.out.println("6 - Calcular Autonomia");
             System.out.println("7 - Gerenciar Cidades");
             System.out.println("8 - Gerenciar Eletropostos");
+            System.out.println("9 - Planejamento de Viagem");
             System.out.println("0 - Sair");
             System.out.print("Escolha uma opção: ");
 
@@ -205,6 +210,11 @@ public class Main {
                 case 8:
 
                     eletropostoController.menuEletroposto();
+                    break;
+
+                case 9:
+
+                    planejamentoViagemController.menuPlanejamento();
                     break;
 
                 case 0:
