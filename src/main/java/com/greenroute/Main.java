@@ -85,8 +85,11 @@ public class Main {
                         System.out.print("Tipo de Combustível: ");
                         String tipoComb = sc.nextLine();
 
+                        System.out.println("Nível de combustível atual: ");
+                        double combAtual = sc.nextDouble();
+
                         VeiculoHibrido hibrido =
-                                new VeiculoHibrido(id, modelo, autonomiaMaxima, cargaBateria, consumo, tempoRecarga, tanque, consumoComb, tipoComb);
+                                new VeiculoHibrido(id, modelo, autonomiaMaxima, cargaBateria, consumo, tempoRecarga, tanque, consumoComb, tipoComb, combAtual);
 
                         controller.cadastrar(hibrido);
                     }
@@ -131,8 +134,7 @@ public class Main {
                     System.out.print("Novo tempo de recarga: ");
                     int novoTempo = sc.nextInt();
 
-                    VeiculoEletrico atualizado =
-                            new VeiculoEletrico(idAtualizar,novoModelo, novaAutonomia, novaCarga, novoConsumo, novoTempo, "CCS2", 30);
+                    VeiculoEletrico atualizado = new VeiculoEletrico(idAtualizar,novoModelo, novaAutonomia, novaCarga, novoConsumo, novoTempo, "CCS2", 30);
 
                     controller.atualizarVeiculo(idAtualizar, atualizado);
 

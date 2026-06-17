@@ -5,16 +5,14 @@ public abstract class Veiculo {
     private String modelo;
     private double autonomiaMaxima;
     private double cargaBateriaAtual;
-    private double combustivelAtual;
     private double consumoKwhPorKm;
     private int tempoRecargaCompleta;
 
-    public Veiculo(int id, String modelo, double autonomiaMaxima, double cargaBateriaAtual, double combustivelAtual, double consumoKwhPorKm, int tempoRecargaCompleta) {
+    public Veiculo(int id, String modelo, double autonomiaMaxima, double cargaBateriaAtual, double consumoKwhPorKm, int tempoRecargaCompleta) {
         this.id = id;
         this.modelo = modelo;
         this.autonomiaMaxima = autonomiaMaxima;
         this.cargaBateriaAtual = cargaBateriaAtual;
-        this.combustivelAtual = combustivelAtual;
         this.consumoKwhPorKm = consumoKwhPorKm;
         this.tempoRecargaCompleta = tempoRecargaCompleta;
     }
@@ -35,10 +33,6 @@ public abstract class Veiculo {
 
     public double getCargaBateriaAtual() {
         return cargaBateriaAtual;
-    }
-
-    public double getCombustivelAtual() {
-        return combustivelAtual;
     }
 
     public double getConsumoKwhPorKm() {
@@ -67,10 +61,6 @@ public abstract class Veiculo {
         this.cargaBateriaAtual = cargaBateriaAtual;
     }
 
-    public void setCombustivelAtual(double combustivelAtual) {
-        this.combustivelAtual;
-    }
-
     public void setConsumoKwhPorKm(double consumoKwhPorKm) {
         this.consumoKwhPorKm = consumoKwhPorKm;
     }
@@ -80,4 +70,11 @@ public abstract class Veiculo {
     }
 
     public abstract double calcularAutonomia();
+
+    @Override
+    public String toString() {
+        return "ID: " + id +
+            ", Modelo: " + modelo +
+            ", Autonomia: " + calcularAutonomia() + " km";
+    }
 }

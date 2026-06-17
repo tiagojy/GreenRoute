@@ -4,14 +4,16 @@ public class VeiculoHibrido extends Veiculo {
     private double capacidadeTanqueCombustivel;
     private double consumoCombustivel;
     private String tipoCombustivel;
+    private double combustivelAtual;
 
-    public VeiculoHibrido(int id, String modelo, double autonomiaMaxima, double combustivelAtual, double consumoKwhPorKm, int tempoRecargaCompleta, double capacidadeTanqueCombustivel, double consumoCombustivel, String tipoCombustivel) {
+    public VeiculoHibrido(int id, String modelo, double autonomiaMaxima, double cargaBateriaAtual, double consumoKwhPorKm, int tempoRecargaCompleta, double capacidadeTanqueCombustivel, double consumoCombustivel, String tipoCombustivel, double combustivelAtual) {
 
-        super(id, modelo, autonomiaMaxima, combustivelAtual, consumoKwhPorKm, tempoRecargaCompleta);
+        super(id, modelo, autonomiaMaxima, cargaBateriaAtual, consumoKwhPorKm, tempoRecargaCompleta);
 
         this.capacidadeTanqueCombustivel = capacidadeTanqueCombustivel;
         this.consumoCombustivel = consumoCombustivel;
         this.tipoCombustivel = tipoCombustivel;
+        this.combustivelAtual = combustivelAtual;
     }
 
     // MÉTODOS GET PARA CADA ATRIBUTO
@@ -28,6 +30,10 @@ public class VeiculoHibrido extends Veiculo {
         return tipoCombustivel;
     }
 
+    public double getCombustivelAtual() {
+        return combustivelAtual;
+    }
+
     // MÉTODOS SET PARA CADA ATRIBUTO
 
     public void setCapacidadeTanqueCombustivel(double capacidadeTanqueCombustivel) {
@@ -42,8 +48,17 @@ public class VeiculoHibrido extends Veiculo {
         this.tipoCombustivel = tipoCombustivel;
     }
 
-    @Override
-    public double calcularAutonomia() {
-        return 0;
+    public void setCombustivelAtual(double combustivelAtual) {
+        this.combustivelAtual = combustivelAtual;
     }
+
+    @Override
+public double calcularAutonomia() {
+
+    double autonomiaEletrica = getCargaBateriaAtual() / getConsumoKwhPorKm();
+
+    double autonomiaCombustivel = getCombustivelAtual() / getConsumoCombustivel();
+
+    return autonomiaEletrica + autonomiaCombustivel;
+}
 }

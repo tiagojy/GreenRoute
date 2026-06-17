@@ -19,28 +19,39 @@ public class VeiculoRepository {
     }
 
     public Veiculo buscar(int id) {
-        if (id >= 0 && id < quantidade) {
-            return veiculos[id];
+        for (int i = 0; i < quantidade; i++) {
+            if (veiculos[i].getId() == id) {
+                return veiculos[i];
+            }
         }
 
         return null;
     }
 
     public void atualizar(int id, Veiculo veiculo) {
-        if (id >= 0 && id < quantidade) {
-            veiculos[id] = veiculo;
+        for (int i = 0; i < quantidade; i++) {
+
+            if (veiculos[i].getId() == id) {
+                veiculos[i] = veiculo;
+                return;
+            }
         }
     }
 
     public void remover(int id) {
-        if (id >= 0 && id < quantidade) {
+        for (int i = 0; i < quantidade; i++) {
 
-            for (int i = id; i < quantidade - 1; i++) {
-                veiculos[i] = veiculos[i + 1];
+            if (veiculos[i].getId() == id) {
+
+                for (int j = i; j < quantidade - 1; j++) {
+                    veiculos[j] = veiculos[j + 1];
+                }
+
+                veiculos[quantidade - 1] = null;
+                quantidade--;
+
+                return;
             }
-
-            veiculos[quantidade - 1] = null;
-            quantidade--;
         }
     }
 
