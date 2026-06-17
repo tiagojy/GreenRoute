@@ -3,22 +3,20 @@ package com.greenroute;
 import java.util.Scanner;
 
 import com.greenroute.controller.VeiculoController;
-import com.greenroute.model.Veiculo;
-import com.greenroute.model.VeiculoEletrico;
-import com.greenroute.model.VeiculoHibrido;
 import com.greenroute.controller.CidadeController;
 import com.greenroute.controller.EletropostoController;
 
-import java.util.Scanner;
+import com.greenroute.model.Veiculo;
+import com.greenroute.model.VeiculoEletrico;
+import com.greenroute.model.VeiculoHibrido;
 
 public class Main {
 
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
-        VeiculoController controller = new VeiculoController();
-        Scanner scanner = new Scanner(System.in);
 
+        VeiculoController controller = new VeiculoController();
         CidadeController cidadeController = new CidadeController();
         EletropostoController eletropostoController = new EletropostoController();
 
@@ -33,7 +31,10 @@ public class Main {
             System.out.println("4 - Atualizar Veículo");
             System.out.println("5 - Remover Veículo");
             System.out.println("6 - Calcular Autonomia");
+            System.out.println("7 - Gerenciar Cidades");
+            System.out.println("8 - Gerenciar Eletropostos");
             System.out.println("0 - Sair");
+            System.out.print("Escolha uma opção: ");
 
             opcao = sc.nextInt();
 
@@ -76,7 +77,16 @@ public class Main {
                         System.out.print("Tempo de Recarga Rápida: ");
                         int tempoRapida = sc.nextInt();
 
-                        VeiculoEletrico eletrico = new VeiculoEletrico(id, modelo, autonomiaMaxima, cargaBateria, consumo, tempoRecarga, conector, tempoRapida);
+                        VeiculoEletrico eletrico = new VeiculoEletrico(
+                                id,
+                                modelo,
+                                autonomiaMaxima,
+                                cargaBateria,
+                                consumo,
+                                tempoRecarga,
+                                conector,
+                                tempoRapida
+                        );
 
                         controller.cadastrar(eletrico);
 
@@ -93,11 +103,21 @@ public class Main {
                         System.out.print("Tipo de Combustível: ");
                         String tipoComb = sc.nextLine();
 
-                        System.out.println("Nível de combustível atual: ");
+                        System.out.print("Nível de combustível atual: ");
                         double combAtual = sc.nextDouble();
 
-                        VeiculoHibrido hibrido =
-                                new VeiculoHibrido(id, modelo, autonomiaMaxima, cargaBateria, consumo, tempoRecarga, tanque, consumoComb, tipoComb, combAtual);
+                        VeiculoHibrido hibrido = new VeiculoHibrido(
+                                id,
+                                modelo,
+                                autonomiaMaxima,
+                                cargaBateria,
+                                consumo,
+                                tempoRecarga,
+                                tanque,
+                                consumoComb,
+                                tipoComb,
+                                combAtual
+                        );
 
                         controller.cadastrar(hibrido);
                     }
@@ -142,7 +162,16 @@ public class Main {
                     System.out.print("Novo tempo de recarga: ");
                     int novoTempo = sc.nextInt();
 
-                    VeiculoEletrico atualizado = new VeiculoEletrico(idAtualizar,novoModelo, novaAutonomia, novaCarga, novoConsumo, novoTempo, "CCS2", 30);
+                    VeiculoEletrico atualizado = new VeiculoEletrico(
+                            idAtualizar,
+                            novoModelo,
+                            novaAutonomia,
+                            novaCarga,
+                            novoConsumo,
+                            novoTempo,
+                            "CCS2",
+                            30
+                    );
 
                     controller.atualizarVeiculo(idAtualizar, atualizado);
 
@@ -168,10 +197,24 @@ public class Main {
 
                     break;
 
+                case 7:
+
+                    cidadeController.menuCidade();
+                    break;
+
+                case 8:
+
+                    eletropostoController.menuEletroposto();
+                    break;
+
                 case 0:
 
                     System.out.println("Sistema encerrado.");
                     break;
+
+                default:
+
+                    System.out.println("Opção inválida!");
             }
 
         } while (opcao != 0);
