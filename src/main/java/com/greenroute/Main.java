@@ -22,7 +22,11 @@ public class Main {
         EletropostoController eletropostoController = new EletropostoController();
 
         PlanejamentoViagemController planejamentoViagemController =
-                new PlanejamentoViagemController(controller, cidadeController);
+                new PlanejamentoViagemController(
+                        controller,
+                        cidadeController,
+                        eletropostoController
+                );
 
         int opcao;
 

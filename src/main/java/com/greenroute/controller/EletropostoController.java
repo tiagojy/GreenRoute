@@ -10,6 +10,14 @@ public class EletropostoController {
     private EletropostoRepository eletropostoRepository = new EletropostoRepository();
     private Scanner scanner = new Scanner(System.in);
 
+    public Eletroposto[] getEletropostos() {
+        return eletropostoRepository.getEletropostos();
+    }
+
+    public int getQuantidadeEletropostos() {
+        return eletropostoRepository.getQuantidadeEletropostos();
+    }
+
     //MENU RESPONSAVEL PELO ELETROPOSTO
     public void menuEletroposto() {
 

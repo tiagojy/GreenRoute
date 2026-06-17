@@ -7,6 +7,14 @@ public class EletropostoRepository {
     private Eletroposto[] eletropostos = new Eletroposto[5];
     private int quantidadeEletropostos;
 
+    public Eletroposto[] getEletropostos() {
+        return eletropostos;
+    }
+
+    public int getQuantidadeEletropostos() {
+        return quantidadeEletropostos;
+    }
+
     // CADASTRAR ELETROPOSTO NO ARRAY
     public void cadastrarEletroposto(Eletroposto eletroposto) {
 

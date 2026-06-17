@@ -1,6 +1,7 @@
 package com.greenroute.controller;
 
 import com.greenroute.model.Cidade;
+import com.greenroute.model.Eletroposto;
 import com.greenroute.model.Veiculo;
 
 import java.util.Scanner;
@@ -9,11 +10,16 @@ public class PlanejamentoViagemController {
 
     private VeiculoController veiculoController;
     private CidadeController cidadeController;
+    private EletropostoController eletropostoController;
 
-    public PlanejamentoViagemController(VeiculoController veiculoController,
-                                        CidadeController cidadeController) {
+    public PlanejamentoViagemController(
+            VeiculoController veiculoController,
+            CidadeController cidadeController,
+            EletropostoController eletropostoController) {
+
         this.veiculoController = veiculoController;
         this.cidadeController = cidadeController;
+        this.eletropostoController = eletropostoController;
     }
 
     public void menuPlanejamento() {
@@ -95,7 +101,43 @@ public class PlanejamentoViagemController {
             System.out.println("Autonomia insuficiente para chegar ao destino.");
             System.out.println("Faltam " + distanciaFaltante
                     + " km de autonomia para concluir a viagem.");
-            System.out.println("Sugestão: procurar um eletroposto para recarga.");
+
+            Eletroposto[] eletropostos =
+                    eletropostoController.getEletropostos();
+
+            int quantidade =
+                    eletropostoController.getQuantidadeEletropostos();
+
+            boolean encontrou = false;
+
+            System.out.println("\n=== ELETROPOSTOS DISPONÍVEIS ===");
+
+            for (int i = 0; i < quantidade; i++) {
+
+                if (eletropostos[i].getCidadeId() == cidade.getId()) {
+
+                    encontrou = true;
+
+                    System.out.println("--------------------------------");
+                    System.out.println("Nome: "
+                            + eletropostos[i].getNome());
+                    System.out.println("Localização: "
+                            + eletropostos[i].getLocalizacao());
+                    System.out.println("Conectores: "
+                            + eletropostos[i].getTiposConectoresDisponiveis());
+                    System.out.println("Potência: "
+                            + eletropostos[i].getPotenciaCargaKw() + " kW");
+                    System.out.println("Preço por kWh: R$ "
+                            + eletropostos[i].getPrecoPorKwh());
+                    System.out.println("Vagas disponíveis: "
+                            + eletropostos[i].getVagasDisponiveis());
+                }
+            }
+
+            if (!encontrou) {
+                System.out.println(
+                        "Nenhum eletroposto encontrado para esta cidade.");
+            }
         }
     }
 }
