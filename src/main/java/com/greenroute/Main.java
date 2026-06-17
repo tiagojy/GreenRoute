@@ -6,6 +6,10 @@ import com.greenroute.controller.VeiculoController;
 import com.greenroute.model.Veiculo;
 import com.greenroute.model.VeiculoEletrico;
 import com.greenroute.model.VeiculoHibrido;
+import com.greenroute.controller.CidadeController;
+import com.greenroute.controller.EletropostoController;
+
+import java.util.Scanner;
 
 public class Main {
 
@@ -13,6 +17,10 @@ public class Main {
 
         Scanner sc = new Scanner(System.in);
         VeiculoController controller = new VeiculoController();
+        Scanner scanner = new Scanner(System.in);
+
+        CidadeController cidadeController = new CidadeController();
+        EletropostoController eletropostoController = new EletropostoController();
 
         int opcao;
 
