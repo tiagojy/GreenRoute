@@ -52,7 +52,7 @@ public class PlanejamentoViagemController {
             }
 
         } while (opcao != 0);
-        sc.close();
+
     }
 
     public void planejarViagem() {
@@ -70,13 +70,13 @@ public class PlanejamentoViagemController {
 
         if (veiculo == null) {
             System.out.println("Veículo não encontrado!");
-            sc.close();
+
             return;
         }
 
         if (cidade == null) {
             System.out.println("Cidade não encontrada!");
-            sc.close();
+
             return;
         }
 
@@ -141,7 +141,7 @@ public class PlanejamentoViagemController {
                 System.out.println(
                         "Nenhum eletroposto encontrado para esta cidade.");
             }
-        sc.close();
+
         }
     }
 }
