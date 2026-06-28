@@ -3,6 +3,7 @@ package com.greenroute.controller;
 import com.greenroute.model.Cidade;
 import com.greenroute.model.Eletroposto;
 import com.greenroute.model.Veiculo;
+import java.util.ArrayList;
 
 import java.util.Scanner;
 
@@ -105,35 +106,32 @@ public class PlanejamentoViagemController {
             System.out.println("Faltam " + distanciaFaltante
                     + " km de autonomia para concluir a viagem.");
 
-            Eletroposto[] eletropostos =
+            ArrayList<Eletroposto> eletropostos =
                     eletropostoController.getEletropostos();
-
-            int quantidade =
-                    eletropostoController.getQuantidadeEletropostos();
 
             boolean encontrou = false;
 
             System.out.println("\n=== ELETROPOSTOS DISPONÍVEIS ===");
 
-            for (int i = 0; i < quantidade; i++) {
+            for (Eletroposto eletroposto : eletropostos) {
 
-                if (eletropostos[i].getCidadeId() == cidade.getId()) {
+                if (eletroposto.getCidadeId() == cidade.getId()) {
 
                     encontrou = true;
 
                     System.out.println("--------------------------------");
                     System.out.println("Nome: "
-                            + eletropostos[i].getNome());
+                            + eletroposto.getNome());
                     System.out.println("Localização: "
-                            + eletropostos[i].getLocalizacao());
+                            + eletroposto.getLocalizacao());
                     System.out.println("Conectores: "
-                            + eletropostos[i].getTiposConectoresDisponiveis());
+                            + eletroposto.getTiposConectoresDisponiveis());
                     System.out.println("Potência: "
-                            + eletropostos[i].getPotenciaCargaKw() + " kW");
+                            + eletroposto.getPotenciaCargaKw() + " kW");
                     System.out.println("Preço por kWh: R$ "
-                            + eletropostos[i].getPrecoPorKwh());
+                            + eletroposto.getPrecoPorKwh());
                     System.out.println("Vagas disponíveis: "
-                            + eletropostos[i].getVagasDisponiveis());
+                            + eletroposto.getVagasDisponiveis());
                 }
             }
 
