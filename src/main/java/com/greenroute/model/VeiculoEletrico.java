@@ -34,6 +34,6 @@ public class VeiculoEletrico extends Veiculo {
 
     @Override
     public double calcularAutonomia() {
-        return getCargaBateriaAtual() / getConsumoKwhPorKm();
+        return getAutonomiaMaxima() * (getCargaBateriaAtual() / 100.0);
     }
 }
