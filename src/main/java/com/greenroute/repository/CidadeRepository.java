@@ -26,6 +26,10 @@ public class CidadeRepository {
         }
     }
 
+    public ArrayList<Cidade> getCidades() {
+        return cidades;
+    }
+
     // REMOVER A CIDADE PELO ID
     public boolean removerCidade(int id) {
 
