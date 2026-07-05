@@ -134,26 +134,43 @@ public class TelaCadastrarVeiculo extends JFrame{
 
         btnVoltar = new JButton("Voltar");
         btnVoltar.addActionListener(e -> {
-            new TelaVeiculos();
+            new TelaVeiculos(controller);
             dispose();
         });
 
         painel.add(lblTitulo);
 
+        painel.add(new JLabel(""));
+        painel.add(new JLabel(""));
+        painel.add(new JLabel(""));
+        
+
         painel.add(lblTipo);
         painel.add(cbTipo);
+        
+        
+        
 
         painel.add(lblId);
         painel.add(txtId);
 
+        
+
         painel.add(lblModelo);
         painel.add(txtModelo);
 
+        
+        
         painel.add(lblAutonomia);
         painel.add(txtAutonomia);
 
+        
+        
+
         painel.add(lblCarga);
         painel.add(txtCarga);
+
+        
 
         painel.add(lblConsumo);
         painel.add(txtConsumo);
@@ -178,6 +195,9 @@ public class TelaCadastrarVeiculo extends JFrame{
 
         painel.add(lblCombAtual);
         painel.add(txtCombAtual);
+
+        painel.add(new JLabel(""));
+        painel.add(new JLabel(""));
 
         painel.add(btnCadastrar);
         painel.add(btnLimpar);
@@ -217,7 +237,6 @@ public class TelaCadastrarVeiculo extends JFrame{
                 );
 
                 controller.cadastrar(eletrico);
-                System.out.println(eletrico);
 
             } else {
 
@@ -240,7 +259,6 @@ public class TelaCadastrarVeiculo extends JFrame{
                 );
 
                 controller.cadastrar(hibrido);
-                System.out.println(hibrido);
 
             }
 
@@ -248,18 +266,18 @@ public class TelaCadastrarVeiculo extends JFrame{
                     "Veículo cadastrado com sucesso!");
 
             limparCampos();
-            new TelaVeiculos();
+            new TelaVeiculos(controller);
             dispose();
 
         
              
 
-        } /*catch (NumberFormatException e) {
+        } catch (NumberFormatException e) {
 
             JOptionPane.showMessageDialog(this,
                     "Digite apenas números nos campos numéricos.");
 
-        } */catch (Exception e) {
+        } catch (Exception e) {
 
             JOptionPane.showMessageDialog(this,
                     e.getMessage());

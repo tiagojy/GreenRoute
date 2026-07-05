@@ -7,12 +7,18 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import com.greenroute.controller.VeiculoController;
+
 public class TelaAtualizarVeiculo extends JFrame {
+    private VeiculoController controller;
+
     private JButton btnAtualizar;
     private JButton btnLimpar;
     private JButton btnVoltar;
 
-    public TelaAtualizarVeiculo() {
+    public TelaAtualizarVeiculo(VeiculoController controller) {
+        this.controller = controller;
+
         setTitle("Atualizar Veículo");
         setSize(700, 500);
         setLocationRelativeTo(null);
@@ -31,7 +37,7 @@ public class TelaAtualizarVeiculo extends JFrame {
 
         btnVoltar = new JButton("Voltar");
         btnVoltar.addActionListener(e -> {
-            new TelaVeiculos();
+            new TelaVeiculos(controller);
             dispose();
         });
 

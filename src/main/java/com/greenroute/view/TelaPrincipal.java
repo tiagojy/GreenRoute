@@ -7,7 +7,10 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import com.greenroute.controller.VeiculoController;
+
 public class TelaPrincipal extends JFrame {
+    private VeiculoController controller = new VeiculoController();
 
     private JButton btnVeiculos;
     private JButton btnAutonomia;
@@ -30,7 +33,7 @@ public class TelaPrincipal extends JFrame {
 
         btnVeiculos = new JButton("Gerenciar Veículos");
         btnVeiculos.addActionListener(e -> {
-            new TelaVeiculos();
+            new TelaVeiculos(controller);
             dispose();
         });
 

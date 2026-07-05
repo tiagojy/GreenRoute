@@ -1,6 +1,7 @@
 package com.greenroute.view;
 
-import java.awt.GridLayout;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -19,7 +20,6 @@ public class TelaListarVeiculos extends JFrame{
 
     private JTable tabelaVeiculos;
     private JScrollPane scrollTabela;
-    private JButton btnListarVeiculos;
     private JButton btnAtualizarLista;
     private JButton btnVoltar;
 
@@ -28,7 +28,7 @@ public class TelaListarVeiculos extends JFrame{
 
         tabelaVeiculos = new JTable();
         scrollTabela = new JScrollPane(tabelaVeiculos);
-
+        scrollTabela.setPreferredSize(new Dimension(600, 300)); // largura x altura
         
 
         setTitle("Listar Veículos");
@@ -37,36 +37,31 @@ public class TelaListarVeiculos extends JFrame{
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         JPanel painel = new JPanel();
-        painel.setLayout(new GridLayout(11, 1, 10, 10));
+        painel.setLayout(new BorderLayout(10, 10));
 
         JLabel titulo = new JLabel("LISTAR VEÍCULOS", JLabel.CENTER);
-
-        btnListarVeiculos = new JButton("Listar");
-        btnListarVeiculos.addActionListener(e -> listarVeiculos());
 
         btnAtualizarLista = new JButton("Atualizar");
         btnAtualizarLista.addActionListener(e -> atualizarLista());
 
         btnVoltar = new JButton("Voltar");
         btnVoltar.addActionListener(e -> {
-            new TelaVeiculos();
+            new TelaVeiculos(controller);
             dispose();
         });
 
-        painel.add(titulo);
+        painel.add(titulo, BorderLayout.NORTH);
+        painel.add(scrollTabela, BorderLayout.CENTER);
 
-        painel.add(scrollTabela);
-
-        painel.add(btnListarVeiculos);
-        painel.add(btnAtualizarLista);
-        painel.add(btnVoltar);
+        JPanel painelBotoes = new JPanel();
+        painelBotoes.add(btnAtualizarLista);
+        painelBotoes.add(btnVoltar);
+        add(painelBotoes, BorderLayout.SOUTH);
         add(painel);
 
         carregarTabela();
         setVisible(true);
     }
-
-    private void listarVeiculos() {}
 
     private void carregarTabela() {
 

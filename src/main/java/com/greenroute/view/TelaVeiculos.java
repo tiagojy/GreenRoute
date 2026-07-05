@@ -19,7 +19,8 @@ public class TelaVeiculos extends JFrame {
     private JButton btnRemover;
     private JButton btnVoltarTelaPrincipal;
 
-    public TelaVeiculos() {
+    public TelaVeiculos(VeiculoController controller) {
+        this.controller = controller;
 
         setTitle("Cadastro de Veículo");
         setSize(700, 500);
@@ -28,7 +29,7 @@ public class TelaVeiculos extends JFrame {
 
         btnCadastrar = new JButton("Cadastrar Veículos");
         btnCadastrar.addActionListener(e -> {
-            new TelaCadastrarVeiculo(new VeiculoController());
+            new TelaCadastrarVeiculo(controller);
             dispose();
         });
 
@@ -40,19 +41,19 @@ public class TelaVeiculos extends JFrame {
 
         btnBuscar = new JButton("Buscar Veículo");
         btnBuscar.addActionListener(e -> {
-            new TelaBuscarVeiculo();
+            new TelaBuscarVeiculo(controller);
             dispose();
         });
 
         btnAtualizar = new JButton("Atualizar Veículo");
         btnAtualizar.addActionListener(e -> {
-            new TelaAtualizarVeiculo();
+            new TelaAtualizarVeiculo(controller);
             dispose();
         });
 
         btnRemover = new JButton("Remover Veículo");
         btnRemover.addActionListener(e -> {
-            new TelaRemoverVeiculo();
+            new TelaRemoverVeiculo(controller);
             dispose();
         });
 
