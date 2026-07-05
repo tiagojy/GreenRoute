@@ -54,11 +54,14 @@ public class VeiculoRepository {
         quantidade--;
     }
 
-    public void listar() {
+    public ArrayList<Veiculo> listar() {
+        return veiculos;
+        /* 
         System.out.println("=== LISTA DE VEÍCULOS ===");
         for (Veiculo veiculo : veiculos) {
             System.out.println("Veículo: " + veiculo.getModelo() + " - ID: " + veiculo.getId() + " - Autonomia: " + veiculo.calcularAutonomia() + " km");
         }
+        */
     }
 
     public int getQuantidade() {

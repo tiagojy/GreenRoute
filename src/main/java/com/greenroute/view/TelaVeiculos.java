@@ -6,7 +6,11 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import com.greenroute.controller.VeiculoController;
+
 public class TelaVeiculos extends JFrame {
+
+    private VeiculoController controller;
 
     private JButton btnCadastrar;
     private JButton btnListar;
@@ -23,10 +27,34 @@ public class TelaVeiculos extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         btnCadastrar = new JButton("Cadastrar Veículos");
+        btnCadastrar.addActionListener(e -> {
+            new TelaCadastrarVeiculo(new VeiculoController());
+            dispose();
+        });
+
         btnListar = new JButton("Listar Veículos");
+        btnListar.addActionListener(e -> {
+            new TelaListarVeiculos(controller);
+            dispose();
+        });
+
         btnBuscar = new JButton("Buscar Veículo");
+        btnBuscar.addActionListener(e -> {
+            new TelaBuscarVeiculo();
+            dispose();
+        });
+
         btnAtualizar = new JButton("Atualizar Veículo");
+        btnAtualizar.addActionListener(e -> {
+            new TelaAtualizarVeiculo();
+            dispose();
+        });
+
         btnRemover = new JButton("Remover Veículo");
+        btnRemover.addActionListener(e -> {
+            new TelaRemoverVeiculo();
+            dispose();
+        });
 
         btnVoltarTelaPrincipal = new JButton("Voltar ao Menu Principal");
         btnVoltarTelaPrincipal.addActionListener(e -> {

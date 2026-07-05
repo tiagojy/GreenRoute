@@ -1,5 +1,7 @@
 package com.greenroute.controller;
 
+import java.util.ArrayList;
+
 import com.greenroute.model.Veiculo;
 import com.greenroute.repository.VeiculoRepository;
 
@@ -27,7 +29,7 @@ public class VeiculoController {
         repository.remover(id); 
     }
 
-    public void listar() {
-        repository.listar();
+    public ArrayList<Veiculo> listar() {
+        return repository.listar();
     }
 }

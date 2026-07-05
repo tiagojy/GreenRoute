@@ -35,6 +35,8 @@ public class TelaPrincipal extends JFrame {
         });
 
         btnAutonomia = new JButton("Calcular Autonomia");
+        
+
         btnCidades = new JButton("Gerenciar Cidades");
         btnEletropostos = new JButton("Gerenciar Eletropostos");
         btnPlanejamento = new JButton("Planejamento de Viagem");
