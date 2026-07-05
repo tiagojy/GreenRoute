@@ -1,56 +1,86 @@
 package com.greenroute.view;
 
+import java.awt.BorderLayout;
 import java.awt.GridLayout;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 import com.greenroute.controller.VeiculoController;
 
-public class TelaRemoverVeiculo extends JFrame{
+public class TelaRemoverVeiculo extends JFrame {
+
     private VeiculoController controller;
 
-    private JButton btnRemoverVeiculo;
-    private JButton btnLimpar;
+    private JTextField txtId;
+    private JButton btnRemover;
     private JButton btnVoltar;
 
+    private JTextArea areaResultado;
+
     public TelaRemoverVeiculo(VeiculoController controller) {
+
         this.controller = controller;
 
         setTitle("Remover Veículo");
-        setSize(700, 500);
+        setSize(700,500);
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-        JPanel painel = new JPanel();
-        painel.setLayout(new GridLayout(11, 1, 10, 10));
+        JPanel painel = new JPanel(new GridLayout(2,2,5,5));
 
-        JLabel titulo = new JLabel("REMOVER VEÍCULO", JLabel.CENTER);
+        painel.add(new JLabel("ID do veículo:"));
 
-        btnRemoverVeiculo = new JButton("Remover");
-        btnRemoverVeiculo.addActionListener(e -> removerVeiculo());
+        txtId = new JTextField();
+        painel.add(txtId);
 
-        btnLimpar = new JButton("Limpar");
-        btnLimpar.addActionListener(e -> limparCampos());
+        btnRemover = new JButton("Remover");
+        painel.add(btnRemover);
 
         btnVoltar = new JButton("Voltar");
+        painel.add(btnVoltar);
+
+        add(painel, BorderLayout.NORTH);
+
+        areaResultado = new JTextArea();
+        areaResultado.setEditable(false);
+
+        add(new JScrollPane(areaResultado), BorderLayout.CENTER);
+
+        btnRemover.addActionListener(e -> removerVeiculo());
+
         btnVoltar.addActionListener(e -> {
-            new TelaVeiculos(controller);
+            new TelaVeiculos(controller).setVisible(true);
             dispose();
         });
-
-        painel.add(titulo);
-
-        painel.add(btnRemoverVeiculo);
-        painel.add(btnLimpar);
-        painel.add(btnVoltar);
-        add(painel);
 
         setVisible(true);
     }
 
-    private void removerVeiculo() {}
-    private void limparCampos() {}
+    private void removerVeiculo() {
+
+        try {
+
+            int id = Integer.parseInt(txtId.getText());
+
+            boolean removido = controller.remover(id);
+
+            if(removido) {
+
+                areaResultado.setText("Veículo removido com sucesso!");
+
+            } else {
+
+                areaResultado.setText("Nenhum veículo encontrado com esse ID.");
+
+            }
+
+        } catch(NumberFormatException ex) {
+
+            JOptionPane.showMessageDialog(this,
+                    "Digite um ID válido!");
+
+        }
+
+    }
+
 }

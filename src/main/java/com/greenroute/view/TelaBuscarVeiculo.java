@@ -1,39 +1,43 @@
 package com.greenroute.view;
 
+import java.awt.BorderLayout;
 import java.awt.GridLayout;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 import com.greenroute.controller.VeiculoController;
+import com.greenroute.model.Veiculo;
 
-public class TelaBuscarVeiculo extends JFrame{
+public class TelaBuscarVeiculo extends JFrame {
+
     private VeiculoController controller;
 
+    private JTextField txtId;
     private JButton btnBuscar;
-    private JButton btnLimpar;
     private JButton btnVoltar;
 
+    private JTextArea areaResultado;
+
     public TelaBuscarVeiculo(VeiculoController controller) {
+
         this.controller = controller;
-        
+
         setTitle("Buscar Veículo");
-        setSize(700, 500);
+        setSize(700,500);
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-        JPanel painel = new JPanel();
-        painel.setLayout(new GridLayout(11, 1, 10, 10));
+        JPanel painelSuperior = new JPanel(new GridLayout(2,2,5,5));
 
-        JLabel titulo = new JLabel("BUSCAR VEÍCULO", JLabel.CENTER);
+        painelSuperior.add(new JLabel("ID do veículo:"));
+
+        txtId = new JTextField();
+        painelSuperior.add(txtId);
 
         btnBuscar = new JButton("Buscar");
         btnBuscar.addActionListener(e -> buscarVeiculo());
 
-        btnLimpar = new JButton("Limpar");
-        btnLimpar.addActionListener(e -> limparCampos());
+        painelSuperior.add(btnBuscar);
 
         btnVoltar = new JButton("Voltar");
         btnVoltar.addActionListener(e -> {
@@ -41,18 +45,48 @@ public class TelaBuscarVeiculo extends JFrame{
             dispose();
         });
 
-        painel.add(titulo);
+        painelSuperior.add(btnVoltar);
 
-        painel.add(btnBuscar);
-        painel.add(btnLimpar);
-        painel.add(btnVoltar);
-        
-        add(painel);
+        add(painelSuperior, BorderLayout.NORTH);
 
-        setVisible(true);    
+        areaResultado = new JTextArea();
+        areaResultado.setEditable(false);
+
+        add(new JScrollPane(areaResultado), BorderLayout.CENTER);
     }
 
-    private void buscarVeiculo() {}
+    private void buscarVeiculo() {
 
-    private void limparCampos() {}
+        try {
+
+            int id = Integer.parseInt(txtId.getText());
+
+            Veiculo v = controller.procurarId(id);
+
+            if(v == null) {
+
+                areaResultado.setText("Veículo não encontrado.");
+
+            }else {
+
+                areaResultado.setText(
+                        "ID: " + v.getId() +
+                        "\nModelo: " + v.getModelo() +
+                        "\nAutonomia: " + v.getAutonomiaMaxima() +
+                        "\nBateria: " + v.getCargaBateriaAtual() +
+                        "\nConsumo: " + v.getConsumoKwhPorKm() +
+                        "\nTempo de Recarga: " + v.getTempoRecargaCompleta()
+                );
+
+            }
+
+        }catch(NumberFormatException ex) {
+
+            JOptionPane.showMessageDialog(this,
+                    "Digite um ID válido!");
+
+        }
+
+    }
+
 }

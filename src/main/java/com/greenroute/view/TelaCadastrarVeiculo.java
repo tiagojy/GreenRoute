@@ -143,34 +143,21 @@ public class TelaCadastrarVeiculo extends JFrame{
         painel.add(new JLabel(""));
         painel.add(new JLabel(""));
         painel.add(new JLabel(""));
-        
 
         painel.add(lblTipo);
         painel.add(cbTipo);
         
-        
-        
-
         painel.add(lblId);
         painel.add(txtId);
-
-        
 
         painel.add(lblModelo);
         painel.add(txtModelo);
 
-        
-        
         painel.add(lblAutonomia);
         painel.add(txtAutonomia);
 
-        
-        
-
         painel.add(lblCarga);
         painel.add(txtCarga);
-
-        
 
         painel.add(lblConsumo);
         painel.add(txtConsumo);
@@ -210,8 +197,16 @@ public class TelaCadastrarVeiculo extends JFrame{
 
     private void cadastrarVeiculo() {
         try {
-
             int id = Integer.parseInt(txtId.getText());
+
+            if (controller.existeId(id)) {
+
+                JOptionPane.showMessageDialog(this,
+                        "Já existe um veículo com esse ID.");
+
+                return;
+            }
+
             String modelo = txtModelo.getText();
             double autonomiaMaxima = Double.parseDouble(txtAutonomia.getText());
             double cargaBateria = Double.parseDouble(txtCarga.getText());

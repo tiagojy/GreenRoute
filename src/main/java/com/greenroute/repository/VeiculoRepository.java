@@ -41,17 +41,20 @@ public class VeiculoRepository {
         System.out.println("Veículo não encontrado");
     }
 
-    public void remover(int id) {
-        int count = 0;
-        for (Veiculo veiculo : veiculos) {
-            if (veiculo.getId() == id) {
-                break;
+    public boolean remover(int id) {
+        for (int i = 0; i < veiculos.size(); i++) {
+
+            if (veiculos.get(i).getId() == id) {
+
+                veiculos.remove(i);
+                quantidade--;
+                return true;
+
             }
-            count++;
+
         }
 
-        veiculos.remove(count);
-        quantidade--;
+        return false;
     }
 
     public ArrayList<Veiculo> listar() {
@@ -66,5 +69,17 @@ public class VeiculoRepository {
 
     public int getQuantidade() {
         return quantidade;
+    }
+
+    public boolean existeId(int id) {
+        for (Veiculo veiculo : veiculos) {
+
+            if (veiculo.getId() == id) {
+                return true;
+            }
+
+        }
+
+        return false;
     }
 }

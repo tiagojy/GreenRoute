@@ -25,11 +25,15 @@ public class VeiculoController {
         repository.atualizar(id, novoVeiculo);
     }
 
-    public void remover(int id) {
-        repository.remover(id); 
+    public boolean remover(int id) {
+        return repository.remover(id);
     }
 
     public ArrayList<Veiculo> listar() {
         return repository.listar();
+    }
+
+    public boolean existeId(int id) {
+        return repository.existeId(id);
     }
 }

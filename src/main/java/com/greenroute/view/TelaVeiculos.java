@@ -41,7 +41,7 @@ public class TelaVeiculos extends JFrame {
 
         btnBuscar = new JButton("Buscar Veículo");
         btnBuscar.addActionListener(e -> {
-            new TelaBuscarVeiculo(controller);
+            new TelaBuscarVeiculo(controller).setVisible(true);
             dispose();
         });
 
