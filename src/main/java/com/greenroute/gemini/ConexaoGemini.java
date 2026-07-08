@@ -9,27 +9,22 @@ import io.github.cdimascio.dotenv.Dotenv;
 
 public class ConexaoGemini {
 
-    public static void main(String[] args) {
+    private static final Dotenv dotenv = Dotenv.load();
 
-        Dotenv dotenv = Dotenv.load();
-        String apiKey = dotenv.get("GEMINI_API_KEY");
+    private static final ChatLanguageModel model =
+            GoogleAiGeminiChatModel.builder()
+                    .apiKey(dotenv.get("GEMINI_API_KEY"))
+                    .modelName("gemini-2.5-flash")
+                    .build();
 
-        ChatLanguageModel model = GoogleAiGeminiChatModel.builder()
-                .apiKey(apiKey)
-                .modelName("gemini-2.5-flash")
-                .build();
-
-        System.out.println("Enviando pergunta ao Gemini...");
+    public static String perguntar(String pergunta) {
 
         ChatRequest request = ChatRequest.builder()
-                .messages(UserMessage.from("Me fale de forma breve qual a cor do ceu"))
+                .messages(UserMessage.from(pergunta))
                 .build();
 
         ChatResponse response = model.chat(request);
 
-        String respostaTexto = response.aiMessage().text();
-
-        System.out.println("\n--- Resposta do Gemini ---");
-        System.out.println(respostaTexto);
+        return response.aiMessage().text();
     }
 }

@@ -9,10 +9,13 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 //import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
 import com.greenroute.controller.VeiculoController;
+import com.greenroute.gemini.ConexaoGemini;
 import com.greenroute.model.VeiculoEletrico;
 import com.greenroute.model.VeiculoHibrido;
 
@@ -66,6 +69,9 @@ public class TelaCadastrarVeiculo extends JFrame{
     private JButton btnCadastrar;
     private JButton btnLimpar;
     private JButton btnVoltar;
+
+    private JButton btnCadastroIA;
+    private JTextArea txtDescricao;
 
     public TelaCadastrarVeiculo(VeiculoController controller) {
         this.controller = controller;
@@ -138,9 +144,11 @@ public class TelaCadastrarVeiculo extends JFrame{
             dispose();
         });
 
+        painel.add(new JLabel(""));
+
         painel.add(lblTitulo);
 
-        painel.add(new JLabel(""));
+        
         painel.add(new JLabel(""));
         painel.add(new JLabel(""));
 
@@ -189,6 +197,52 @@ public class TelaCadastrarVeiculo extends JFrame{
         painel.add(btnCadastrar);
         painel.add(btnLimpar);
         painel.add(btnVoltar);
+
+        btnCadastroIA = new JButton("Inserir dados por IA");
+        btnCadastroIA.addActionListener(e -> {
+            String descricao = txtDescricao.getText();
+
+            String prompt =
+                """
+                Extraia as informações do veículo abaixo.
+
+                Responda SOMENTE neste formato:
+
+                id=
+                modelo=
+                autonomia=
+                bateria=
+                consumo=
+                tempo=
+                tipo de veículo=
+                tipo de conector=
+                tempo de recarga rápida=
+                
+                E se caso o tipo de veículo for híbrido, acrescente essas informações:
+
+                capacidade do Tanque=
+                consumo do combustível=
+                tipo de combustível= 
+                nível de combustível atual=
+
+                Descrição:
+                """ + descricao;
+
+            String resposta = ConexaoGemini.perguntar(prompt);
+
+            preencherCampos(resposta);
+
+            System.out.println(resposta);
+        });
+
+        painel.add(new JLabel(""));
+
+        painel.add(new JLabel("Cadastro rápido por IA: "));
+
+        txtDescricao = new JTextArea(5, 50);
+        painel.add(new JScrollPane(txtDescricao));
+
+        painel.add(btnCadastroIA);
 
         add(painel);
 
@@ -300,5 +354,103 @@ public class TelaCadastrarVeiculo extends JFrame{
         txtCombAtual.setText("");
 
         cbTipo.setSelectedIndex(0);
+    }
+
+    private void preencherCampos(String resposta) {
+
+        String[] linhas = resposta.split("\n");
+
+        for (String linha : linhas) {
+
+            String[] partes = linha.split("=");
+
+            if (partes.length < 2)
+                continue;
+
+            String valor = partes[1].trim();
+
+            switch (partes[0]) {
+
+                case "id":
+                    txtId.setText(valor);
+                    break;
+
+                case "modelo":
+                    txtModelo.setText(valor);
+                    break;
+
+                case "autonomia":
+                    valor = valor.replace("km", "").trim();
+                    txtAutonomia.setText(valor);
+                    break;
+
+                case "bateria":
+                    valor = valor.replace("%", "").trim();
+                    txtCarga.setText(valor);
+                    break;
+
+                case "consumo":
+                    valor = valor.replace("kWh/km", "").trim();
+                    txtConsumo.setText(valor);
+                    break;
+
+                case "tempo":
+                    valor = valor.replace("horas", "")
+                                .replace("hora", "")
+                                .trim();
+                    txtTempoRecarga.setText(valor);
+                    break;
+
+                case "tipo de veículo":
+                    if (valor.equalsIgnoreCase("Elétrico") ||
+                        valor.equalsIgnoreCase("Eletrico")) {
+
+                        cbTipo.setSelectedIndex(0);
+
+                    } else {
+
+                        cbTipo.setSelectedIndex(1);
+                    }
+
+                    break;
+                case "tipo de conector":
+                    txtConector.setText(valor);
+
+                    break;
+
+                case "tempo de recarga rápida":
+                    valor = valor.replace("horas", "")
+                                .replace("hora", "")
+                                .trim();
+                    txtTempoRapida.setText(valor);
+                    break;
+
+                case "capacidade do Tanque":
+                    valor = valor.replace("litros", "")
+                                .replace("litro", "")
+                                .trim();
+                    txtTanque.setText(valor);
+
+                    break;
+
+                case "consumo do combustível": 
+                    valor = valor.replace("km/l", "").trim();
+                    txtConsumoComb.setText(valor);
+
+                    break;
+
+                case "tipo de combustível":
+                    txtTipoComb.setText(valor);
+                    
+                    break;
+
+                case "nível de combustível atual":
+                    valor = valor.replace("litros", "")
+                                .replace("litro", "")
+                                .trim();
+                    txtCombAtual.setText(valor);
+                    break;
+            }
+        }
     }
 }
