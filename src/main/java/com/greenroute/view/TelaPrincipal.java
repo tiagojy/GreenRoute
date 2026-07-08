@@ -64,6 +64,10 @@ public class TelaPrincipal extends JFrame {
 
         btnAutonomia = new JButton("Calcular Autonomia");
 
+        btnAutonomia.addActionListener(e -> {
+            new TelaCalcularAutonomia(controller, this).setVisible(true);
+        });
+
         btnCidades = new JButton("Gerenciar Cidades");
 
         btnCidades.addActionListener(e -> {
