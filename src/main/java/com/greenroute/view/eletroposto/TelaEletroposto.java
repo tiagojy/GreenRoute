@@ -1,30 +1,31 @@
-package com.greenroute.view.cidade;
+package com.greenroute.view.eletroposto;
 
-import com.greenroute.controller.CidadeController;
+import com.greenroute.controller.EletropostoController;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class TelaCidade extends JFrame {
+public class TelaEletroposto extends JFrame {
 
-    private CidadeController cidadeController;
+    private EletropostoController eletropostoController;
     private JFrame telaPrincipal;
-
     private JButton btnCadastrar;
     private JButton btnBuscar;
     private JButton btnAtualizar;
+
+
     private JButton btnRemover;
     private JButton btnListar;
     private JButton btnVoltar;
 
 
 
-    public TelaCidade(CidadeController cidadeController, JFrame telaPrincipal) {
+    public TelaEletroposto(EletropostoController eletropostoController, JFrame telaPrincipal) {
 
-        this.cidadeController = cidadeController;
+        this.eletropostoController = eletropostoController;
         this.telaPrincipal = telaPrincipal;
 
-        setTitle("GreenRoute - Gerenciamento de Cidades");
+        setTitle("GreenRoute - Gerenciamento de Eletropostos");
 
         setExtendedState(JFrame.MAXIMIZED_BOTH);
 
@@ -33,7 +34,7 @@ public class TelaCidade extends JFrame {
         setLayout(new BorderLayout());
 
         JLabel titulo = new JLabel(
-                "GERENCIAMENTO DE CIDADES", SwingConstants.CENTER);
+                "GERENCIAMENTO DE ELETROPOSTOS", SwingConstants.CENTER);
 
         titulo.setFont(new Font("Arial", Font.BOLD, 16));
 
@@ -48,14 +49,14 @@ public class TelaCidade extends JFrame {
         painelBotoes.setBorder(
                 BorderFactory.createEmptyBorder(10, 60, 10, 60));
 
-        btnCadastrar = new JButton("Cadastrar Cidade");
-        btnBuscar = new JButton("Buscar Cidade");
-        btnAtualizar = new JButton("Atualizar Cidade");
-        btnRemover = new JButton("Remover Cidade");
-        btnListar = new JButton("Listar Cidades");
+        btnCadastrar = new JButton("Cadastrar Eletroposto");
+        btnBuscar = new JButton("Buscar Eletroposto");
+        btnAtualizar = new JButton("Atualizar Eletroposto");
+
+
+        btnRemover = new JButton("Remover Eletroposto");
+        btnListar = new JButton("Listar Eletropostos");
         btnVoltar = new JButton("Voltar");
-
-
 
         painelBotoes.add(btnCadastrar);
         painelBotoes.add(btnBuscar);
@@ -67,19 +68,21 @@ public class TelaCidade extends JFrame {
         add(painelBotoes, BorderLayout.CENTER);
 
         btnCadastrar.addActionListener(e ->
-                new TelaCadastrarCidade(cidadeController).setVisible(true));
+                new TelaCadastrarEletroposto(eletropostoController).setVisible(true));
+
+
 
         btnBuscar.addActionListener(e ->
-                new TelaBuscarCidade(cidadeController).setVisible(true));
+                new TelaBuscarEletroposto(eletropostoController).setVisible(true));
 
         btnAtualizar.addActionListener(e ->
-                new TelaAtualizarCidade(cidadeController).setVisible(true));
+                new TelaAtualizarEletroposto(eletropostoController).setVisible(true));
 
         btnRemover.addActionListener(e ->
-                new TelaRemoverCidade(cidadeController).setVisible(true));
+                new TelaRemoverEletroposto(eletropostoController).setVisible(true));
 
         btnListar.addActionListener(e ->
-                new TelaListarCidade(cidadeController).setVisible(true));
+                new TelaListarEletroposto(eletropostoController).setVisible(true));
 
         btnVoltar.addActionListener(e -> {
             dispose();
@@ -87,6 +90,7 @@ public class TelaCidade extends JFrame {
                 telaPrincipal.setVisible(true);
             }
         });
+
 
     }
 

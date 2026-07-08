@@ -1,36 +1,37 @@
-package com.greenroute.view.cidade;
+package com.greenroute.view.eletroposto;
 
-import com.greenroute.controller.CidadeController;
-import com.greenroute.gemini.CidadeIA;
-import com.greenroute.model.Cidade;
+import com.greenroute.controller.EletropostoController;
+import com.greenroute.gemini.EletropostoIA;
+import com.greenroute.model.Eletroposto;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class TelaCadastrarCidade extends JFrame {
+public class TelaCadastrarEletroposto extends JFrame {
 
-
-
-    private CidadeController cidadeController;
-    private CidadeIA cidadeIA;
+    private EletropostoController eletropostoController;
+    private EletropostoIA eletropostoIA;
     private JTextField txtId;
     private JTextField txtNome;
-    private JTextField txtEstado;
-    private JTextField txtDistancia;
+    private JTextField txtLocalizacao;
+    private JTextField txtCidadeId;
+    private JTextField txtConectores;
+    private JTextField txtPotencia;
+    private JTextField txtPreco;
+    private JTextField txtVagas;
     private JTextArea txtDescricao;
     private JButton btnSalvar;
     private JButton btnCancelar;
     private JButton btnCadastrarIA;
 
 
-    public TelaCadastrarCidade(CidadeController cidadeController) {
 
+    public TelaCadastrarEletroposto(EletropostoController eletropostoController) {
 
+        this.eletropostoController = eletropostoController;
+        this.eletropostoIA = new EletropostoIA();
 
-        this.cidadeController = cidadeController;
-        this.cidadeIA = new CidadeIA();
-
-        setTitle("Cadastrar Cidade");
+        setTitle("Cadastrar Eletroposto");
 
         setSize(700, 500);
 
@@ -42,36 +43,53 @@ public class TelaCadastrarCidade extends JFrame {
 
         JPanel painelFormulario = new JPanel();
 
-        painelFormulario.setLayout(new GridLayout(4, 2, 10, 10));
+        painelFormulario.setLayout(new GridLayout(8, 2, 10, 10));
 
         painelFormulario.setBorder(
-                BorderFactory.createTitledBorder("Dados da Cidade"));
+                BorderFactory.createTitledBorder("Dados do Eletroposto"));
 
         painelFormulario.add(new JLabel("ID:"));
         txtId = new JTextField();
         painelFormulario.add(txtId);
+
         painelFormulario.add(new JLabel("Nome:"));
         txtNome = new JTextField();
         painelFormulario.add(txtNome);
 
-
-        painelFormulario.add(new JLabel("Estado:"));
-        txtEstado = new JTextField();
-        painelFormulario.add(txtEstado);
-
+        painelFormulario.add(new JLabel("Localização:"));
+        txtLocalizacao = new JTextField();
+        painelFormulario.add(txtLocalizacao);
 
 
-        painelFormulario.add(new JLabel("Distância da Capital (km):"));
-        txtDistancia = new JTextField();
-        painelFormulario.add(txtDistancia);
+
+        painelFormulario.add(new JLabel("ID da Cidade:"));
+        txtCidadeId = new JTextField();
+        painelFormulario.add(txtCidadeId);
+
+        painelFormulario.add(new JLabel("Conectores Disponíveis:"));
+        txtConectores = new JTextField();
+        painelFormulario.add(txtConectores);
+
+        painelFormulario.add(new JLabel("Potência de Carga (kW):"));
+        txtPotencia = new JTextField();
+        painelFormulario.add(txtPotencia);
+
+        painelFormulario.add(new JLabel("Preço por kWh (R$):"));
+        txtPreco = new JTextField();
+        painelFormulario.add(txtPreco);
+
+        painelFormulario.add(new JLabel("Vagas Disponíveis:"));
+        txtVagas = new JTextField();
+        painelFormulario.add(txtVagas);
 
         add(painelFormulario, BorderLayout.NORTH);
 
-        // Painel de descricão para preenchimento por IA
+        // Painel de descrição para preenchimento por IA
 
         JPanel painelDescricao = new JPanel(new BorderLayout(5, 5));
         painelDescricao.setBorder(
                 BorderFactory.createTitledBorder("Descrição (para Cadastrar por IA)"));
+
 
         txtDescricao = new JTextArea(6, 30);
         txtDescricao.setLineWrap(true);
@@ -105,17 +123,16 @@ public class TelaCadastrarCidade extends JFrame {
                 return;
             }
 
+
             btnCadastrarIA.setEnabled(false);
             btnCadastrarIA.setText("Gerando...");
 
-            // Chama a IA em segundo plano, pra tela não travar enquanto espera
-
-            SwingWorker<Cidade, Void> worker = new SwingWorker<>() {
-
+            // Chamada à IA feita em background para não travar a interface
+            SwingWorker<Eletroposto, Void> worker = new SwingWorker<>() {
 
                 @Override
-                protected Cidade doInBackground() throws Exception {
-                    return cidadeIA.gerarCidade(descricao);
+                protected Eletroposto doInBackground() throws Exception {
+                    return eletropostoIA.gerarEletroposto(descricao);
                 }
 
                 @Override
@@ -126,13 +143,16 @@ public class TelaCadastrarCidade extends JFrame {
 
                     try {
 
-                        Cidade cidade = get();
+                        Eletroposto eletroposto = get();
 
-                        txtId.setText(String.valueOf(cidade.getId()));
-                        txtNome.setText(cidade.getNome());
-                        txtEstado.setText(cidade.getEstado());
-                        txtDistancia.setText(String.valueOf(cidade.getDistanciaDaCapital()));
-
+                        txtId.setText(String.valueOf(eletroposto.getId()));
+                        txtNome.setText(eletroposto.getNome());
+                        txtLocalizacao.setText(eletroposto.getLocalizacao());
+                        txtCidadeId.setText(String.valueOf(eletroposto.getCidadeId()));
+                        txtConectores.setText(eletroposto.getTiposConectoresDisponiveis());
+                        txtPotencia.setText(String.valueOf(eletroposto.getPotenciaCargaKw()));
+                        txtPreco.setText(String.valueOf(eletroposto.getPrecoPorKwh()));
+                        txtVagas.setText(String.valueOf(eletroposto.getVagasDisponiveis()));
 
                     } catch (Exception ex) {
 
@@ -147,9 +167,8 @@ public class TelaCadastrarCidade extends JFrame {
                                     + "Tente novamente mais tarde ou cadastre manualmente.";
                         }
 
-
                         JOptionPane.showMessageDialog(
-                                TelaCadastrarCidade.this,
+                                TelaCadastrarEletroposto.this,
                                 "Erro ao gerar dados por IA: " + mensagem
                         );
                     }
@@ -161,39 +180,44 @@ public class TelaCadastrarCidade extends JFrame {
 
         btnSalvar.addActionListener(e -> {
 
-
-
             try {
 
                 int id = Integer.parseInt(txtId.getText());
-                if (cidadeController.buscarCidadePorId(id) != null) {
+
+                if (eletropostoController.buscarEletropostoPorId(id) != null) {
 
                     JOptionPane.showMessageDialog(
                             this,
-                            "Já existe uma cidade com esse ID!"
+                            "Já existe um eletroposto com esse ID!"
                     );
 
                     return;
                 }
 
                 String nome = txtNome.getText();
+                String localizacao = txtLocalizacao.getText();
+                int cidadeId = Integer.parseInt(txtCidadeId.getText());
+                String conectores = txtConectores.getText();
+                double potencia = Double.parseDouble(txtPotencia.getText());
+                double preco = Double.parseDouble(txtPreco.getText());
+                int vagas = Integer.parseInt(txtVagas.getText());
 
-                String estado = txtEstado.getText();
-
-                double distancia =
-                        Double.parseDouble(txtDistancia.getText());
-
-                Cidade cidade = new Cidade(
+                Eletroposto eletroposto = new Eletroposto(
                         id,
                         nome,
-                        estado,
-                        distancia
+                        localizacao,
+                        cidadeId,
+                        conectores,
+                        potencia,
+                        preco,
+                        vagas
                 );
-                cidadeController.cadastrarCidade(cidade);
+
+                eletropostoController.cadastrarEletroposto(eletroposto);
 
                 JOptionPane.showMessageDialog(
                         this,
-                        "Cidade cadastrada com sucesso!"
+                        "Eletroposto cadastrado com sucesso!"
                 );
 
                 dispose();
@@ -203,11 +227,12 @@ public class TelaCadastrarCidade extends JFrame {
 
                 JOptionPane.showMessageDialog(
                         this,
-                        "Erro ao cadastrar cidade!"
+                        "Erro ao cadastrar eletroposto!"
                 );
             }
 
         });
+
 
 
         btnCancelar.addActionListener(e -> dispose());

@@ -1,24 +1,29 @@
-package com.greenroute.view.cidade;
+package com.greenroute.view.eletroposto;
 
-import com.greenroute.controller.CidadeController;
+import com.greenroute.controller.EletropostoController;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class TelaRemoverCidade extends JFrame {
 
-    private CidadeController cidadeController;
+public class TelaRemoverEletroposto extends JFrame {
 
+    private EletropostoController eletropostoController;
     private JTextField txtId;
+
 
     private JButton btnRemover;
     private JButton btnFechar;
 
-    public TelaRemoverCidade(CidadeController cidadeController) {
 
-        this.cidadeController = cidadeController;
 
-        setTitle("Remover Cidade");
+    public TelaRemoverEletroposto(EletropostoController eletropostoController) {
+
+
+
+        this.eletropostoController = eletropostoController;
+
+        setTitle("Remover Eletroposto");
 
         setSize(700, 500);
 
@@ -49,21 +54,20 @@ public class TelaRemoverCidade extends JFrame {
 
         btnRemover.addActionListener(e -> {
 
-
-
             try {
 
                 int id = Integer.parseInt(txtId.getText());
 
-                if (cidadeController.buscarCidadePorId(id) == null) {
+                if (eletropostoController.buscarEletropostoPorId(id) == null) {
 
                     JOptionPane.showMessageDialog(
                             this,
-                            "Cidade não encontrada!"
+                            "Eletroposto não encontrado!"
                     );
 
                     return;
                 }
+
 
                 int opcao = JOptionPane.showConfirmDialog(
                         this,
@@ -74,18 +78,16 @@ public class TelaRemoverCidade extends JFrame {
 
                 if (opcao == JOptionPane.YES_OPTION) {
 
-                    cidadeController.removerCidadePorId(id);
+                    eletropostoController.removerEletropostoPorId(id);
 
                     JOptionPane.showMessageDialog(
                             this,
-                            "Cidade removida."
+                            "Eletroposto removido."
                     );
 
                     dispose();
 
                 }
-
-
 
             } catch (Exception ex) {
 
@@ -96,10 +98,11 @@ public class TelaRemoverCidade extends JFrame {
 
             }
 
+
+
         });
 
         btnFechar.addActionListener(e -> dispose());
-
 
 
     }

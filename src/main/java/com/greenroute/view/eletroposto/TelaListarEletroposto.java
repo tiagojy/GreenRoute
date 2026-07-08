@@ -1,27 +1,26 @@
-package com.greenroute.view.cidade;
+package com.greenroute.view.eletroposto;
 
-import com.greenroute.controller.CidadeController;
-import com.greenroute.model.Cidade;
+import com.greenroute.controller.EletropostoController;
+import com.greenroute.model.Eletroposto;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
-public class TelaListarCidade extends JFrame {
+public class TelaListarEletroposto extends JFrame {
 
-    private CidadeController cidadeController;
+    private EletropostoController eletropostoController;
+
     private JTable tabela;
     private DefaultTableModel modeloTabela;
     private JButton btnAtualizarLista;
     private JButton btnFechar;
 
-    public TelaListarCidade(CidadeController cidadeController) {
+    public TelaListarEletroposto(EletropostoController eletropostoController) {
 
+        this.eletropostoController = eletropostoController;
 
-
-        this.cidadeController = cidadeController;
-
-        setTitle("Cidades Cadastradas");
+        setTitle("Eletropostos Cadastrados");
 
         setSize(700, 500);
 
@@ -32,17 +31,23 @@ public class TelaListarCidade extends JFrame {
         setLayout(new BorderLayout());
 
         modeloTabela = new DefaultTableModel();
+
         modeloTabela.addColumn("ID");
         modeloTabela.addColumn("Nome");
-        modeloTabela.addColumn("Estado");
-        modeloTabela.addColumn("Distância");
+        modeloTabela.addColumn("Localização");
+        modeloTabela.addColumn("Cidade ID");
+        modeloTabela.addColumn("Conectores");
+        modeloTabela.addColumn("Potência (kW)");
+        modeloTabela.addColumn("Preço/kWh");
+        modeloTabela.addColumn("Vagas");
+
 
         tabela = new JTable(modeloTabela);
 
         JScrollPane scroll = new JScrollPane(tabela);
 
         scroll.setBorder(
-                BorderFactory.createTitledBorder("Cidades Cadastradas"));
+                BorderFactory.createTitledBorder("Eletropostos Cadastrados"));
 
         add(scroll, BorderLayout.CENTER);
 
@@ -51,11 +56,11 @@ public class TelaListarCidade extends JFrame {
         btnAtualizarLista = new JButton("Atualizar Lista");
         btnFechar = new JButton("Fechar");
 
-
         painelBotoes.add(btnAtualizarLista);
         painelBotoes.add(btnFechar);
 
         add(painelBotoes, BorderLayout.SOUTH);
+
 
         btnAtualizarLista.addActionListener(e -> atualizarTabela());
 
@@ -65,28 +70,29 @@ public class TelaListarCidade extends JFrame {
 
     }
 
-
-
     private void atualizarTabela() {
 
         modeloTabela.setRowCount(0);
 
-        for (Cidade cidade : cidadeController.listarCidades()) {
+        for (Eletroposto eletroposto : eletropostoController.getEletropostos()) {
+
 
             modeloTabela.addRow(new Object[]{
 
-                    cidade.getId(),
-                    cidade.getNome(),
-                    cidade.getEstado(),
-                    cidade.getDistanciaDaCapital()
+                    eletroposto.getId(),
+                    eletroposto.getNome(),
+                    eletroposto.getLocalizacao(),
+                    eletroposto.getCidadeId(),
+                    eletroposto.getTiposConectoresDisponiveis(),
+                    eletroposto.getPotenciaCargaKw(),
+                    eletroposto.getPrecoPorKwh(),
+                    eletroposto.getVagasDisponiveis()
 
             });
+
 
         }
 
     }
 
-
-
 }
-

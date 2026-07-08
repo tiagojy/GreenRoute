@@ -22,7 +22,6 @@ public class CidadeController {
         int opcao;
 
         do {
-            System.out.println("=== MENU CIDADE ===");
             System.out.println("1 - Cadastrar Cidade");
             System.out.println("2 - Listar Cidades");
             System.out.println("3 - Buscar Cidade");
@@ -173,9 +172,11 @@ public class CidadeController {
     }
 
     // Cadastrar cidade pela GUI
+
     public void cadastrarCidade(Cidade cidade) {
         cidadeRepository.cadastrarCidade(cidade);
     }
+
     // Listar cidades para a GUI
     public ArrayList<Cidade> listarCidades() {
         return cidadeRepository.getCidades();
@@ -185,6 +186,8 @@ public class CidadeController {
         return cidadeRepository.buscarCidade(id);
     }
     // Atualizar cidade pela GUI
+
+
     public boolean atualizarCidade(Cidade cidade) {
         return cidadeRepository.atualizarCidade(cidade);
     }

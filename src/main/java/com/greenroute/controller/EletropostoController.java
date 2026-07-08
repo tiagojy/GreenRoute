@@ -19,13 +19,30 @@ public class EletropostoController {
         return eletropostoRepository.getQuantidadeEletropostos();
     }
 
+    // MÉTODOS PÚBLICOS PARA USO PELA INTERFACE GRÁFICA
+
+    public void cadastrarEletroposto(Eletroposto eletroposto) {
+        eletropostoRepository.cadastrarEletroposto(eletroposto);
+    }
+
+    public Eletroposto buscarEletropostoPorId(int id) {
+        return eletropostoRepository.buscarEletroposto(id);
+    }
+
+    public boolean atualizarEletroposto(Eletroposto eletroposto) {
+        return eletropostoRepository.atualizarEletroposto(eletroposto);
+    }
+
+    public boolean removerEletropostoPorId(int id) {
+        return eletropostoRepository.removerEletroposto(id);
+    }
+
     //MENU RESPONSAVEL PELO ELETROPOSTO
     public void menuEletroposto() {
 
         int opcao;
 
         do {
-            System.out.println("=== MENU ELETROPOSTO ===");
             System.out.println("1 - Cadastrar Eletroposto");
             System.out.println("2 - Listar Eletropostos");
             System.out.println("3 - Buscar Eletroposto");

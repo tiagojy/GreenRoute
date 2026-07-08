@@ -25,7 +25,7 @@ public class TelaBuscarCidade extends JFrame {
 
         setTitle("Buscar Cidade");
 
-        setSize(350, 300);
+        setSize(700, 500);
 
         setLocationRelativeTo(null);
 

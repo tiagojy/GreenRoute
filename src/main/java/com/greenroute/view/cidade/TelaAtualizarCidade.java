@@ -26,7 +26,7 @@ public class TelaAtualizarCidade extends JFrame {
 
         setTitle("Atualizar Cidade");
 
-        setSize(350, 300);
+        setSize(700, 500);
 
         setLocationRelativeTo(null);
 
