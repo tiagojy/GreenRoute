@@ -264,6 +264,11 @@ public class TelaCadastrarVeiculo extends JFrame{
             }
 
             String modelo = txtModelo.getText();
+
+            if (modelo.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Informe o modelo do veículo.");
+                return;
+            }
             double autonomiaMaxima = Double.parseDouble(txtAutonomia.getText());
             double cargaBateria = Double.parseDouble(txtCarga.getText());
             double consumo = Double.parseDouble(txtConsumo.getText());
@@ -274,6 +279,11 @@ public class TelaCadastrarVeiculo extends JFrame{
             if (tipo.equals("Veículo Elétrico")) {
 
                 String conector = txtConector.getText();
+                if (conector.isEmpty()) {
+                    JOptionPane.showMessageDialog(this, "Informe o tipo de conector do veículo.");
+                    return;
+                }
+
                 int tempoRapida = Integer.parseInt(txtTempoRapida.getText());
 
                 VeiculoEletrico eletrico = new VeiculoEletrico(
@@ -294,6 +304,11 @@ public class TelaCadastrarVeiculo extends JFrame{
                 double tanque = Double.parseDouble(txtTanque.getText());
                 double consumoComb = Double.parseDouble(txtConsumoComb.getText());
                 String tipoComb = txtTipoComb.getText();
+                if (tipoComb.isEmpty()) {
+                    JOptionPane.showMessageDialog(this, "Informe o tipo de combustível do veículo.");
+                    return;
+                }
+
                 double combAtual = Double.parseDouble(txtCombAtual.getText());
 
                 VeiculoHibrido hibrido = new VeiculoHibrido(

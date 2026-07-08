@@ -177,8 +177,16 @@ public class TelaCadastrarCidade extends JFrame {
                 }
 
                 String nome = txtNome.getText();
+                if (nome.isEmpty()) {
+                    JOptionPane.showMessageDialog(this, "Informe o nome da cidade.");
+                    return;
+                }
 
                 String estado = txtEstado.getText();
+                if (estado.isEmpty()) {
+                    JOptionPane.showMessageDialog(this, "Informe o estado da cidade.");
+                    return;
+                }
 
                 double distancia =
                         Double.parseDouble(txtDistancia.getText());

@@ -195,9 +195,25 @@ public class TelaCadastrarEletroposto extends JFrame {
                 }
 
                 String nome = txtNome.getText();
+                if (nome.isEmpty()) {
+                    JOptionPane.showMessageDialog(this, "Informe o nome do Eletroposto.");
+                    return;
+                }
+
                 String localizacao = txtLocalizacao.getText();
+                if (localizacao.isEmpty()) {
+                    JOptionPane.showMessageDialog(this, "Informe a localização do Eletroposto.");
+                    return;
+                }
+
                 int cidadeId = Integer.parseInt(txtCidadeId.getText());
                 String conectores = txtConectores.getText();
+                if (conectores.isEmpty()) {
+                    JOptionPane.showMessageDialog(this, "Informe o(s) tipo(s) de conector(es) do Eletroposto.");
+                    return;
+                }
+
+
                 double potencia = Double.parseDouble(txtPotencia.getText());
                 double preco = Double.parseDouble(txtPreco.getText());
                 int vagas = Integer.parseInt(txtVagas.getText());
