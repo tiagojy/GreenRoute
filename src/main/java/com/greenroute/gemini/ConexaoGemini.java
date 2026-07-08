@@ -32,5 +32,4 @@ public class ConexaoGemini {
 
         return response.aiMessage().text();
     }
-
 }

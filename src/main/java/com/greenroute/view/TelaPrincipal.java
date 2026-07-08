@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 
-
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -23,6 +22,7 @@ public class TelaPrincipal extends JFrame {
     private VeiculoController controller = new VeiculoController();
     private CidadeController cidadeController = new CidadeController();
     private EletropostoController eletropostoController = new EletropostoController();
+
     private JButton btnVeiculos;
     private JButton btnAutonomia;
     private JButton btnCidades;
@@ -30,10 +30,7 @@ public class TelaPrincipal extends JFrame {
     private JButton btnPlanejamento;
     private JButton btnSair;
 
-
-
     public TelaPrincipal() {
-
 
         setTitle("GreenRoute");
 
@@ -49,7 +46,6 @@ public class TelaPrincipal extends JFrame {
 
         titulo.setBorder(BorderFactory.createEmptyBorder(15, 0, 15, 0));
 
-
         add(titulo, BorderLayout.NORTH);
 
         JPanel painelBotoes = new JPanel();
@@ -59,24 +55,21 @@ public class TelaPrincipal extends JFrame {
         painelBotoes.setBorder(
                 BorderFactory.createEmptyBorder(10, 60, 10, 60));
 
-
-
         btnVeiculos = new JButton("Gerenciar Veículos");
 
         btnVeiculos.addActionListener(e -> {
+            new TelaVeiculos(controller).setVisible(true);
+            setVisible(false);
         });
 
         btnAutonomia = new JButton("Calcular Autonomia");
 
         btnCidades = new JButton("Gerenciar Cidades");
 
-
         btnCidades.addActionListener(e -> {
             new TelaCidade(cidadeController, this).setVisible(true);
             setVisible(false);
         });
-
-
 
         btnEletropostos = new JButton("Gerenciar Eletropostos");
 
@@ -89,7 +82,6 @@ public class TelaPrincipal extends JFrame {
 
         btnSair = new JButton("Sair");
 
-
         painelBotoes.add(btnVeiculos);
         painelBotoes.add(btnAutonomia);
         painelBotoes.add(btnCidades);
@@ -101,12 +93,8 @@ public class TelaPrincipal extends JFrame {
 
         btnSair.addActionListener(e -> System.exit(0));
 
-
-
         setVisible(true);
 
     }
-
-
 
 }
