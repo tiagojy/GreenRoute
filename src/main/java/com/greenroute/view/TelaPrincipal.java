@@ -84,6 +84,12 @@ public class TelaPrincipal extends JFrame {
 
         btnPlanejamento = new JButton("Planejamento de Viagem");
 
+        btnPlanejamento.addActionListener(e -> {
+            // A TelaPrincipal permanece aberta em segundo plano;
+            // a tela de planejamento abre por cima, como uma sobreposição.
+            new TelaPlanejamentoViagem(controller, cidadeController, this).setVisible(true);
+        });
+
         btnSair = new JButton("Sair");
 
         painelBotoes.add(btnVeiculos);
