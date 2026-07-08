@@ -38,3 +38,8 @@ build/
 ### Mac OS ###
 .DS_Store
 Pdfs/
+
+### Variáveis de ambiente (chaves de API, senhas, etc.) ###
+.env
+.env.*
+!.env.example
