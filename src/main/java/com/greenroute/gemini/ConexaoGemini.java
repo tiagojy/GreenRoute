@@ -19,6 +19,7 @@ public class ConexaoGemini {
         model = GoogleAiGeminiChatModel.builder()
                 .apiKey(apiKey)
                 .modelName("gemini-2.5-flash")
+                .maxRetries(5) // antes era o padrão (3); aumentado para dar mais chance em picos de demanda
                 .build();
     }
 
@@ -28,8 +29,37 @@ public class ConexaoGemini {
                 .messages(UserMessage.from(pergunta))
                 .build();
 
-        ChatResponse response = model.chat(request);
+        try {
 
-        return response.aiMessage().text();
+            ChatResponse response = model.chat(request);
+
+            return response.aiMessage().text();
+
+        } catch (RuntimeException e) {
+
+            String mensagem = e.getMessage();
+
+            if (mensagem != null &&
+                    (mensagem.contains("503") || mensagem.contains("UNAVAILABLE"))) {
+
+                throw new IllegalStateException(
+                        "O serviço de IA está sobrecarregado no momento. " +
+                                "Tente novamente em alguns instantes."
+                );
+            }
+
+            if (mensagem != null &&
+                    (mensagem.contains("429") || mensagem.contains("RESOURCE_EXHAUSTED"))) {
+
+                throw new IllegalStateException(
+                        "O limite de uso gratuito da IA foi atingido. " +
+                                "Tente novamente mais tarde ou use outra chave de API."
+                );
+            }
+
+            throw new IllegalStateException(
+                    "Erro ao se comunicar com a IA: " + mensagem
+            );
+        }
     }
 }
