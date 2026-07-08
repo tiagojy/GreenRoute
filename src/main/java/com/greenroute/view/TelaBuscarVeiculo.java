@@ -11,6 +11,7 @@ import com.greenroute.model.Veiculo;
 public class TelaBuscarVeiculo extends JFrame {
 
     private VeiculoController controller;
+    private JFrame telaAnterior;
 
     private JTextField txtId;
     private JButton btnBuscar;
@@ -18,9 +19,10 @@ public class TelaBuscarVeiculo extends JFrame {
 
     private JTextArea areaResultado;
 
-    public TelaBuscarVeiculo(VeiculoController controller) {
+    public TelaBuscarVeiculo(VeiculoController controller, JFrame telaAnterior) {
 
         this.controller = controller;
+        this.telaAnterior = telaAnterior;
 
         setTitle("Buscar Veículo");
         setSize(700,500);
@@ -41,8 +43,10 @@ public class TelaBuscarVeiculo extends JFrame {
 
         btnVoltar = new JButton("Voltar");
         btnVoltar.addActionListener(e -> {
-            new TelaVeiculos(controller);
             dispose();
+            if (this.telaAnterior != null) {
+                this.telaAnterior.setVisible(true);
+            }
         });
 
         painelSuperior.add(btnVoltar);
@@ -71,11 +75,11 @@ public class TelaBuscarVeiculo extends JFrame {
 
                 areaResultado.setText(
                         "ID: " + v.getId() +
-                        "\nModelo: " + v.getModelo() +
-                        "\nAutonomia: " + v.getAutonomiaMaxima() +
-                        "\nBateria: " + v.getCargaBateriaAtual() +
-                        "\nConsumo: " + v.getConsumoKwhPorKm() +
-                        "\nTempo de Recarga: " + v.getTempoRecargaCompleta()
+                                "\nModelo: " + v.getModelo() +
+                                "\nAutonomia: " + v.getAutonomiaMaxima() +
+                                "\nBateria: " + v.getCargaBateriaAtual() +
+                                "\nConsumo: " + v.getConsumoKwhPorKm() +
+                                "\nTempo de Recarga: " + v.getTempoRecargaCompleta()
                 );
 
             }

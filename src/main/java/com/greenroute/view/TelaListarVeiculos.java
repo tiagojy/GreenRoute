@@ -17,24 +17,26 @@ import com.greenroute.model.VeiculoEletrico;
 
 public class TelaListarVeiculos extends JFrame{
     private VeiculoController controller;
+    private JFrame telaAnterior;
 
     private JTable tabelaVeiculos;
     private JScrollPane scrollTabela;
     private JButton btnAtualizarLista;
     private JButton btnVoltar;
 
-    public TelaListarVeiculos(VeiculoController controller) {
+    public TelaListarVeiculos(VeiculoController controller, JFrame telaAnterior) {
         this.controller = controller;
+        this.telaAnterior = telaAnterior;
 
         tabelaVeiculos = new JTable();
         scrollTabela = new JScrollPane(tabelaVeiculos);
         scrollTabela.setPreferredSize(new Dimension(600, 300)); // largura x altura
-        
+
 
         setTitle("Listar Veículos");
         setSize(700, 500);
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         JPanel painel = new JPanel();
         painel.setLayout(new BorderLayout(10, 10));
@@ -46,8 +48,10 @@ public class TelaListarVeiculos extends JFrame{
 
         btnVoltar = new JButton("Voltar");
         btnVoltar.addActionListener(e -> {
-            new TelaVeiculos(controller);
             dispose();
+            if (this.telaAnterior != null) {
+                this.telaAnterior.setVisible(true);
+            }
         });
 
         painel.add(titulo, BorderLayout.NORTH);
@@ -60,17 +64,16 @@ public class TelaListarVeiculos extends JFrame{
         add(painel);
 
         carregarTabela();
-        setVisible(true);
     }
 
     private void carregarTabela() {
 
         String[] colunas = {
-            "ID",
-            "Modelo",
-            "Tipo",
-            "Autonomia",
-            "Carga"
+                "ID",
+                "Modelo",
+                "Tipo",
+                "Autonomia",
+                "Carga"
         };
 
         DefaultTableModel modeloTabela =
@@ -88,11 +91,11 @@ public class TelaListarVeiculos extends JFrame{
 
             modeloTabela.addRow(new Object[]{
 
-                v.getId(),
-                v.getModelo(),
-                tipo,
-                v.getAutonomiaMaxima(),
-                v.getCargaBateriaAtual()
+                    v.getId(),
+                    v.getModelo(),
+                    tipo,
+                    v.getAutonomiaMaxima(),
+                    v.getCargaBateriaAtual()
 
             });
 

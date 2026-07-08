@@ -10,6 +10,7 @@ import com.greenroute.controller.VeiculoController;
 public class TelaRemoverVeiculo extends JFrame {
 
     private VeiculoController controller;
+    private JFrame telaAnterior;
 
     private JTextField txtId;
     private JButton btnRemover;
@@ -17,9 +18,10 @@ public class TelaRemoverVeiculo extends JFrame {
 
     private JTextArea areaResultado;
 
-    public TelaRemoverVeiculo(VeiculoController controller) {
+    public TelaRemoverVeiculo(VeiculoController controller, JFrame telaAnterior) {
 
         this.controller = controller;
+        this.telaAnterior = telaAnterior;
 
         setTitle("Remover Veículo");
         setSize(700,500);
@@ -49,11 +51,11 @@ public class TelaRemoverVeiculo extends JFrame {
         btnRemover.addActionListener(e -> removerVeiculo());
 
         btnVoltar.addActionListener(e -> {
-            new TelaVeiculos(controller).setVisible(true);
             dispose();
+            if (this.telaAnterior != null) {
+                this.telaAnterior.setVisible(true);
+            }
         });
-
-        setVisible(true);
     }
 
     private void removerVeiculo() {

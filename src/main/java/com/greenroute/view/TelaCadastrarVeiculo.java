@@ -20,8 +20,9 @@ import com.greenroute.model.VeiculoEletrico;
 import com.greenroute.model.VeiculoHibrido;
 
 public class TelaCadastrarVeiculo extends JFrame{
-    
+
     private VeiculoController controller;
+    private JFrame telaAnterior;
 
     private JLabel lblTitulo;
 
@@ -73,13 +74,14 @@ public class TelaCadastrarVeiculo extends JFrame{
     private JButton btnCadastroIA;
     private JTextArea txtDescricao;
 
-    public TelaCadastrarVeiculo(VeiculoController controller) {
+    public TelaCadastrarVeiculo(VeiculoController controller, JFrame telaAnterior) {
         this.controller = controller;
+        this.telaAnterior = telaAnterior;
 
         setTitle("GreenRoute");
         setSize(700, 500);
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         JPanel painel = new JPanel();
         painel.setLayout(new GridLayout(11, 1, 10, 10));
@@ -140,21 +142,23 @@ public class TelaCadastrarVeiculo extends JFrame{
 
         btnVoltar = new JButton("Voltar");
         btnVoltar.addActionListener(e -> {
-            new TelaVeiculos(controller);
             dispose();
+            if (this.telaAnterior != null) {
+                this.telaAnterior.setVisible(true);
+            }
         });
 
         painel.add(new JLabel(""));
 
         painel.add(lblTitulo);
 
-        
+
         painel.add(new JLabel(""));
         painel.add(new JLabel(""));
 
         painel.add(lblTipo);
         painel.add(cbTipo);
-        
+
         painel.add(lblId);
         painel.add(txtId);
 
@@ -203,32 +207,32 @@ public class TelaCadastrarVeiculo extends JFrame{
             String descricao = txtDescricao.getText();
 
             String prompt =
-                """
-                Extraia as informações do veículo abaixo.
+                    """
+                    Extraia as informações do veículo abaixo.
+    
+                    Responda SOMENTE neste formato:
+    
+                    id=
+                    modelo=
+                    autonomia=
+                    bateria=
+                    consumo=
+                    tempo=
+                    tipo de veículo=
+                    tipo de conector=
+                    tempo de recarga rápida=
+                    
+                    E se caso o tipo de veículo for híbrido, acrescente essas informações:
+    
+                    capacidade do Tanque=
+                    consumo do combustível=
+                    tipo de combustível= 
+                    nível de combustível atual=
+    
+                    Descrição:
+                    """ + descricao;
 
-                Responda SOMENTE neste formato:
-
-                id=
-                modelo=
-                autonomia=
-                bateria=
-                consumo=
-                tempo=
-                tipo de veículo=
-                tipo de conector=
-                tempo de recarga rápida=
-                
-                E se caso o tipo de veículo for híbrido, acrescente essas informações:
-
-                capacidade do Tanque=
-                consumo do combustível=
-                tipo de combustível= 
-                nível de combustível atual=
-
-                Descrição:
-                """ + descricao;
-
-            String resposta = ConexaoGemini.perguntar(prompt);
+            String resposta = new ConexaoGemini().perguntar(prompt);
 
             preencherCampos(resposta);
 
@@ -245,8 +249,6 @@ public class TelaCadastrarVeiculo extends JFrame{
         painel.add(btnCadastroIA);
 
         add(painel);
-
-        setVisible(true);
     }
 
     private void cadastrarVeiculo() {
@@ -315,11 +317,10 @@ public class TelaCadastrarVeiculo extends JFrame{
                     "Veículo cadastrado com sucesso!");
 
             limparCampos();
-            new TelaVeiculos(controller);
             dispose();
-
-        
-             
+            if (this.telaAnterior != null) {
+                this.telaAnterior.setVisible(true);
+            }
 
         } catch (NumberFormatException e) {
 
@@ -332,7 +333,7 @@ public class TelaCadastrarVeiculo extends JFrame{
                     e.getMessage());
 
         }
-                    
+
 
     }
 
@@ -396,14 +397,14 @@ public class TelaCadastrarVeiculo extends JFrame{
 
                 case "tempo":
                     valor = valor.replace("horas", "")
-                                .replace("hora", "")
-                                .trim();
+                            .replace("hora", "")
+                            .trim();
                     txtTempoRecarga.setText(valor);
                     break;
 
                 case "tipo de veículo":
                     if (valor.equalsIgnoreCase("Elétrico") ||
-                        valor.equalsIgnoreCase("Eletrico")) {
+                            valor.equalsIgnoreCase("Eletrico")) {
 
                         cbTipo.setSelectedIndex(0);
 
@@ -420,20 +421,20 @@ public class TelaCadastrarVeiculo extends JFrame{
 
                 case "tempo de recarga rápida":
                     valor = valor.replace("horas", "")
-                                .replace("hora", "")
-                                .trim();
+                            .replace("hora", "")
+                            .trim();
                     txtTempoRapida.setText(valor);
                     break;
 
                 case "capacidade do Tanque":
                     valor = valor.replace("litros", "")
-                                .replace("litro", "")
-                                .trim();
+                            .replace("litro", "")
+                            .trim();
                     txtTanque.setText(valor);
 
                     break;
 
-                case "consumo do combustível": 
+                case "consumo do combustível":
                     valor = valor.replace("km/l", "").trim();
                     txtConsumoComb.setText(valor);
 
@@ -441,13 +442,13 @@ public class TelaCadastrarVeiculo extends JFrame{
 
                 case "tipo de combustível":
                     txtTipoComb.setText(valor);
-                    
+
                     break;
 
                 case "nível de combustível atual":
                     valor = valor.replace("litros", "")
-                                .replace("litro", "")
-                                .trim();
+                            .replace("litro", "")
+                            .trim();
                     txtCombAtual.setText(valor);
                     break;
             }

@@ -58,7 +58,7 @@ public class TelaPrincipal extends JFrame {
         btnVeiculos = new JButton("Gerenciar Veículos");
 
         btnVeiculos.addActionListener(e -> {
-            new TelaVeiculos(controller).setVisible(true);
+            new TelaVeiculos(controller, this).setVisible(true);
             setVisible(false);
         });
 

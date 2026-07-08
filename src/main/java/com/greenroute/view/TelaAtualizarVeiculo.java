@@ -10,6 +10,7 @@ import com.greenroute.model.Veiculo;
 public class TelaAtualizarVeiculo extends JFrame {
 
     private VeiculoController controller;
+    private JFrame telaAnterior;
 
     private JTextField txtId;
     private JTextField txtModelo;
@@ -24,9 +25,10 @@ public class TelaAtualizarVeiculo extends JFrame {
 
     private Veiculo veiculoAtual;
 
-    public TelaAtualizarVeiculo(VeiculoController controller) {
+    public TelaAtualizarVeiculo(VeiculoController controller, JFrame telaAnterior) {
 
         this.controller = controller;
+        this.telaAnterior = telaAnterior;
 
         setTitle("Atualizar Veículo");
         setSize(700,500);
@@ -76,11 +78,11 @@ public class TelaAtualizarVeiculo extends JFrame {
         btnAtualizar.addActionListener(e -> atualizar());
 
         btnVoltar.addActionListener(e -> {
-            new TelaVeiculos(controller).setVisible(true);
             dispose();
+            if (this.telaAnterior != null) {
+                this.telaAnterior.setVisible(true);
+            }
         });
-
-        setVisible(true);
     }
 
     private void buscar() {
