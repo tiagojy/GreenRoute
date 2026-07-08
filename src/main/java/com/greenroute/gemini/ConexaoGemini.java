@@ -19,7 +19,7 @@ public class ConexaoGemini {
         model = GoogleAiGeminiChatModel.builder()
                 .apiKey(apiKey)
                 .modelName("gemini-2.5-flash")
-                .maxRetries(5) // antes era o padrão (3); aumentado para dar mais chance em picos de demanda
+                .maxRetries(5)
                 .build();
     }
 
